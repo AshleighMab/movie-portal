@@ -26,8 +26,6 @@ const { data:Mypeople} = useGet({
     <div>
         <h1>Movie Title:  {movies.MyMovies.result[3].title}</h1>
             <h1>Person Name:  {person.Mypeople.result[2].name}</h1>
-
-
     </div>
   );
 };
