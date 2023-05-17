@@ -1,34 +1,48 @@
-import React, { useEffect } from "react";
-import { useMovies } from '../providers/movies';
+import React, { useEffect, useState } from "react";
+import { useMovies } from "../providers/movies";
+import Layout from "../components/Layout";
+import styles from "../styles/movies.module.css";
 
 function CarouselGrid() {
   const { getMovie, MovieGotten } = useMovies();
+  const [mainMovie, setMainMovie] = useState(null);
 
-  getMovie();
+    getMovie();
+  
 
-  if (!MovieGotten) {
+  useEffect(() => {
+    if (MovieGotten && MovieGotten.length > 0) {
+      const randomIndex = Math.floor(Math.random() * MovieGotten.length);
+      setMainMovie(MovieGotten[randomIndex]);
+    }
+  }, [MovieGotten]);
+
+  if (!MovieGotten || !mainMovie) {
     return <h1>Loading</h1>;
   }
-  const theMovies = {MovieGotten}
 
-  console.log("Movie Gotten:", theMovies.MovieGotten)
+  const otherMovies = MovieGotten.filter((movie) => movie !== mainMovie);
 
   return (
-
-    <div >
-      <h1>HELLO</h1>
-      <div >
-        {MovieGotten.map((movie, index) => (
-          <div key={index}> 
-            <div >
-              <h1 >{movie.title}</h1>
-              <p>{movie.duration}</p>
-            </div>
-          </div>
-        ))}
+    <Layout>
+<div className={styles.container}>
+  <div className={styles.mainMovie}>
+    <h1 className={styles.title}>{mainMovie.title}</h1>
+    <p className={styles.duration}>{mainMovie.duration}</p>
+  </div>
+  <div className={styles.scrollableContainer}>
+    {otherMovies.map((movie, index) => (
+      <div className={styles.item} key={index}>
+        <img src={movie.image} className={styles.image} />
+        <div className={styles.details}>
+          <h1 className={styles.title}>{movie.title}</h1>
+          <p className={styles.duration}>{movie.duration}</p>
+        </div>
       </div>
-    </div>
-
+    ))}
+  </div>
+</div>
+    </Layout>
   );
 }
 

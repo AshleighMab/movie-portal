@@ -13,7 +13,7 @@ Gender: string;
 export interface ILogin{  
     Password: string; 
     EmailAddress: string;   
-    }
+}
 
 export interface IUserStateContext{
     readonly UserCreated?: IUser;

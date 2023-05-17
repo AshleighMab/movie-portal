@@ -7,6 +7,8 @@ export interface IMovie {
     description: string
     starring: string
     category: string
+    image:string
+    link:string
 }
 
 export interface IMovieStateContext{
