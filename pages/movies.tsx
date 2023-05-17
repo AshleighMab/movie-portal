@@ -1,24 +1,35 @@
-import React from "react";
-import { useGet } from "restful-react";
+import React, { useEffect } from "react";
+import { useMovies } from '../providers/movies';
 
-const Movies = () => {
-  const { data: MyMovies} = useGet({
-    path: "/Movie/GetAll",
-  });
-  if(!MyMovies){
-    return <h1>Loading</h1>
+function CarouselGrid() {
+  const { getMovie, MovieGotten } = useMovies();
+
+  getMovie();
+
+  if (!MovieGotten) {
+    return <h1>Loading</h1>;
   }
-  const movies = {
-    MyMovies
-  }
-  
-console.log('movies::', movies.MyMovies.result)
+  const theMovies = {MovieGotten}
+
+  console.log("Movie Gotten:", theMovies.MovieGotten)
 
   return (
-    <div>
-        <h1>Movie Title:  {movies.MyMovies.result[3].title}</h1>
-    </div>
-  );
-};
 
-export default Movies;
+    <div >
+      <h1>HELLO</h1>
+      <div >
+        {MovieGotten.map((movie, index) => (
+          <div key={index}> 
+            <div >
+              <h1 >{movie.title}</h1>
+              <p>{movie.duration}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  );
+}
+
+export default CarouselGrid;
