@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
-import styles from "./movies.module.css";
+import styles from "./style.module.css";
 
 function CarouselGrid() {
   const { getMovie, MovieGotten } = useMovies();
@@ -22,6 +22,7 @@ function CarouselGrid() {
   }
 
   const otherMovies = MovieGotten.filter((movie) => movie !== mainMovie);
+  console.log("Image::", MovieGotten[3].image )
 
   return (
     <Layout>
@@ -34,6 +35,7 @@ function CarouselGrid() {
     {otherMovies.map((movie, index) => (
       <div className={styles.item} key={index}>
         <img src={movie.image} className={styles.image} />
+      
         <div className={styles.details}>
           <h1 className={styles.title}>{movie.title}</h1>
           <p className={styles.duration}>{movie.duration}</p>

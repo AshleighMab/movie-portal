@@ -1,15 +1,16 @@
-nav {
+.nav {
     background-color: black;
     padding: 10px;
+    text-align: right;
   }
   
-  nav a {
+.a {
     color: white;
     text-decoration: none;
-    margin-right: 10px;
+   
   }
   
-  nav a:hover {
+  .a:hover {
     color: gray;
   }
   
@@ -30,7 +31,13 @@ nav {
   }
   
   /* Styles for the header and footer */
-  header, footer {
+  .header{
+    background-color: black;
+    color: white;
+    padding: 10px;
+    
+  }
+  .footer {
     background-color: black;
     color: white;
     padding: 10px;
