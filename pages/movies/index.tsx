@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useMovies } from "../providers/movies";
-import Layout from "../components/Layout";
-import styles from "../styles/movies.module.css";
+import { useMovies } from "../../providers/movies";
+import Layout from "../../components/Layout";
+import styles from "./movies.module.css";
 
 function CarouselGrid() {
   const { getMovie, MovieGotten } = useMovies();

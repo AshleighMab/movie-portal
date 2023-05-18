@@ -3,8 +3,8 @@ import { Form, Input, Button, Layout } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import Link from 'next/link'
 // import './LoginStyle.css';
-import { useUsers } from '../providers/users';
-import { ILogin } from '../providers/users/context';
+import { useUsers } from '../../providers/users';
+import { ILogin } from '../../providers/users/context';
 
 interface LoginProps {
   onFormSwitch: (formType: string) => void;
