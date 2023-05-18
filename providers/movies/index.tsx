@@ -16,9 +16,10 @@ import {
 import {
   CreateMovieRequestAction,
   SearchMovieRequestAction,
-  GetMovieRequestAction,
+  GetMoviesRequestAction,
   UpdateMovieRequestAction,
   DeleteMovieRequestAction,
+  FetchMovieRequestAction,
 } from "./action";
 import { message } from "antd";
 
@@ -27,21 +28,52 @@ const MovieProvider = ({ children }) => {
   const [isDispatched, setIsDispatched] = useState(false);
 
   
-  const getMovie = async () => {
+  const getMovies = async () => {
     const { data: IMovie } = await useGet({
       path: "Movie/GetAll",
     });
 
     if (IMovie && !isDispatched) {
       console.log("index movies::", IMovie.result);
-      dispatch(GetMovieRequestAction(IMovie.result));
+      dispatch(GetMoviesRequestAction(IMovie.result));
       setIsDispatched(true);
     }
   };
 
+  const fetchedMovie = async (payload: IMovie) => {
+    await fetch(`https://localhost:44311/api/services/app/Movie/Get?id=${payload.id}`, {
+    method: 'GET',
+                cache: "no-cache",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                res.json().then(data => {
+                    dispatch(FetchMovieRequestAction(data.result));
+                    console.log("Something::", data)
+                })
+            })
+        };
+
+
+
+  // const fetchedMovie = async (id) => {
+  //   const { data, loading, error } = useGet(`Movie/Get/${id}`);
+  
+  //   if (loading) {
+  //     return <div>Loading...</div>;
+  //   }
+  
+  //   if (error) {
+  //     return <div>Error: {error.message}</div>;
+  //   }
+  
+  //   return dispatch(FetchMovieRequestAction(data.result));
+  // };
+
   return (
     <MovieContext.Provider value={state}>
-      <MovieActionContext.Provider value={{ getMovie }}>
+      <MovieActionContext.Provider value={{ getMovies, fetchedMovie}}>
         {children}
       </MovieActionContext.Provider>
     </MovieContext.Provider>

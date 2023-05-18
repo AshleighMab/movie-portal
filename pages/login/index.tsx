@@ -4,7 +4,8 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import style from "../login/style.module.css";
 import { useUsers } from "../../providers/users";
-import Layout from "../../components/Layout";
+import { useNavigate  } from 'react-router-dom';
+import Layout from '../../components/Layout'
 import { ILogin } from "../../providers/users/context";
 
 function Login() {
@@ -19,6 +20,8 @@ function Login() {
     }
   }, [Login]);
 
+
+  
   const onFinish = async (values: ILogin) => {
     // setLoading(true);
     console.log("Received values:", values);
@@ -74,20 +77,16 @@ function Login() {
               </Form.Item>
 
               <Form.Item>
-                <Button id={style.button} htmlType="submit" loading={loading}>
+                <Button className={style.button} htmlType="submit" loading={loading}>
                   Login
                 </Button>
 
-                <Button
-                  id={style.button}
-                  onClick={() => <Link href="/register">Movies</Link>}
-                >
-                  Register
-                </Button>
+                <Link className={style.redirect} href="/movies">My Movies</Link> 
               </Form.Item>
             </Form>
           </div>
         </div>
+        <Link href="register"></Link>
         <Link style={{ marginRight: "60px" }} href="/movies">
           Movies
         </Link>

@@ -13,23 +13,25 @@ export interface IMovie {
 
 export interface IMovieStateContext{
   readonly MovieCreated?: IMovie
-  readonly MovieGotten?: IMovie[]
+  readonly MoviesGotten?: IMovie[]
   readonly MovieUpdated?: IMovie
+  readonly MovieFetched?: IMovie
   readonly MovieDeletedId?: string
   readonly MovieSearched?: IMovie[]
  
 }
 
 export const INITIAL_STATE: IMovieStateContext = {
-  MovieGotten:[]
+  MoviesGotten:[]
 }
 
 export interface IMovieActionContext{
     createMovie?:(payload:IMovie)=>void;
-    getMovie?: () => void;
+    getMovies?: () => void;
     updateMovie?: (payload:IMovie) => void;
     deleteMovie?: (payload:string) => void;
     searchMovie?: (payload:string) => void;
+    fetchedMovie?: (payload:IMovie) => void;
 }
 
 const MovieContext = createContext<IMovieStateContext>(INITIAL_STATE);
