@@ -1,6 +1,7 @@
 import { createContext } from 'react'
 
 export interface IMovie {
+    find: any
     id?:string
     title: string
     duration: string
@@ -31,10 +32,10 @@ export interface IMovieActionContext{
     updateMovie?: (payload:IMovie) => void;
     deleteMovie?: (payload:string) => void;
     searchMovie?: (payload:string) => void;
-    fetchedMovie?: (payload:IMovie) => void;
+    fetchedMovie?: (payload:string) => void;
 }
 
-const MovieContext = createContext<IMovieStateContext>(INITIAL_STATE);
+const MovieContext = createContext<IMovieStateContext>({});
 const MovieActionContext = createContext<IMovieActionContext>({});
 
 export {MovieContext, MovieActionContext}

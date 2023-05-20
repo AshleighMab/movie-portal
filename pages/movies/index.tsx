@@ -1,63 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
+import { Card, Col, Row } from "antd";
+import { IMovie } from "../../providers/movies/context";
 
-function CarouselGrid() {
-  const { getMovies, MoviesGotten } = useMovies();
-  const [mainMovie, setMainMovie] = useState(null);
 
-    getMovies();
-  
+export const HomeMovies=() => {
 
-  useEffect(() => {
-    if (MoviesGotten && MoviesGotten.length > 0) {
-      const randomIndex = Math.floor(Math.random() * MoviesGotten.length);
-      setMainMovie(MoviesGotten[randomIndex]);
-    }
-  }, [MoviesGotten]);
+  const { getMovies, MoviesGotten, fetchedMovie,  searchMovie } = useMovies();
+  const[movieState, setMoviesState] = useState({} as IMovie);
+ 
+  getMovies();
 
-  if (!MoviesGotten || !mainMovie) {
-    return <h1>Loading</h1>;
-  }
+console.log("MovieState::", movieState)
 
-  const handleMovieClick = (movieId) => {
-    router.push(`/viewmovie?id=${movieId}`);
+  const handleMovieClick = (movieid) => { 
+    router.push(`/movie/${movieid.id}`);
   };
-  
-  const otherMovies = MoviesGotten.filter((movie) => movie !== mainMovie);
-  console.log("Image::", MoviesGotten[3].image )
 
+
+  console.log("This is movies::", MoviesGotten);
   return (
     <Layout>
-<div className={styles.container}>
-<div className={styles.mainMovie}>
-
-            <h1 className={styles.title}>{mainMovie.title}</h1>
-            <video src={mainMovie.link} className={styles.image} controls />
-            <p className={styles.duration}>{mainMovie.duration}</p>
-          </div>
-          <div className={styles.scrollableContainer}>
-            {otherMovies.map((movie, index) => (
-              <div
-                className={styles.item}
-                key={index}
-                onClick={() => handleMovieClick(movie.id)}
-              >
-              {/* <video src={movie.link} className={styles.image} controls /> */}
-                <div className={styles.details}>
-                <img src={movie.image} className={styles.image} />
-                  <h1 className={styles.title}>{movie.title}</h1>
-                  <p className={styles.duration}>{movie.duration}</p>
+    
+        <Row gutter={24}>
+        {MoviesGotten?.map((movie, index) => (
+          <Col span={4}>
+          
+              <Card title={movie.title} bordered={false}>
+                <div
+                  className={styles.item}
+                  key={index}
+                  onClick={() => handleMovieClick(movie)}
+                >
+                  <div className={styles.details} key={movie.id}>
+                    <img src={movie.image} className={styles.image} />
+                  </div>
+                  <button onClick={() => handleMovieClick(movie)}>
+                    View Movie
+                  </button>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-     
+              </Card>
+         
+          </Col>
+             ))}
+        </Row>
+   
     </Layout>
   );
 }
 
-export default CarouselGrid;
+
+export default HomeMovies;

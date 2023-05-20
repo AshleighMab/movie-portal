@@ -2,24 +2,21 @@ import React, {
   PropsWithChildren,
   useReducer,
   useContext,
-  FC,
+  useEffect,
   useState,
 } from "react";
 import { MovieReducer } from "./reducer";
 import { useGet } from "restful-react";
 import {
-  IMovie,
   INITIAL_STATE,
   MovieContext,
   MovieActionContext,
 } from "./context";
 import {
-  CreateMovieRequestAction,
-  SearchMovieRequestAction,
   GetMoviesRequestAction,
-  UpdateMovieRequestAction,
-  DeleteMovieRequestAction,
   FetchMovieRequestAction,
+  SearchMovieRequestAction,
+
 } from "./action";
 import { message } from "antd";
 
@@ -27,7 +24,15 @@ const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
   const [isDispatched, setIsDispatched] = useState(false);
 
-  
+  const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
+
+
+  const fetchedMovie =  (movieId: string) => {
+    getMovieById({queryParams:{id:movieId}}) 
+    dispatch(SearchMovieRequestAction(IMovie?.result));           
+  };
+
+
   const getMovies = async () => {
     const { data: IMovie } = await useGet({
       path: "Movie/GetAll",
@@ -40,35 +45,26 @@ const MovieProvider = ({ children }) => {
     }
   };
 
-  const fetchedMovie = async (payload: IMovie) => {
-    await fetch(`https://localhost:44311/api/services/app/Movie/Get?id=${payload.id}`, {
-    method: 'GET',
-                cache: "no-cache",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(res => {
-                res.json().then(data => {
-                    dispatch(FetchMovieRequestAction(data.result));
-                    console.log("Something::", data)
-                })
-            })
-        };
+  // const {refetch:searchForMovie,error:searchError,loading:isSearchingMovie,data:SearchMovie}=useGet({path:'Movie/Search'})
+
+  // useEffect(()=>{
+  //     console.log("Searchresult::",SearchMovie)
+  //       dispatch(SearchMovieRequestAction(SearchMovie));        
+      
+  // },[SearchMovie,isSearchingMovie,searchError])
+
+  // const searchMovie =  (searchTerm: string) => {
+  //   searchForMovie({queryParams:{searchTerm}})    
+  // };
 
 
-
-  // const fetchedMovie = async (id) => {
-  //   const { data, loading, error } = useGet(`Movie/Get/${id}`);
-  
-  //   if (loading) {
-  //     return <div>Loading...</div>;
+  // const searchMovie = async (searchItem: string) => {
+  //   const url = `${localhost}/api/services/app/Movie/Search?searchTerm=${searchItem}`;
+  //   const result = await callApi(url, 'GET');
+  //   if (result) {
+  //     dispatch(SearchMovieRequestAction(result));
+  //     console.log("Searched:", result);
   //   }
-  
-  //   if (error) {
-  //     return <div>Error: {error.message}</div>;
-  //   }
-  
-  //   return dispatch(FetchMovieRequestAction(data.result));
   // };
 
   return (

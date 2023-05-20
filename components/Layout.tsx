@@ -1,36 +1,91 @@
-import React, { ReactNode } from 'react'
-import Link from 'next/link'
-import Head from 'next/head'
-import style from './Layout.module.css'
+import React, { ChangeEvent, ReactNode } from 'react';
+import Link from 'next/link';
+import Head from 'next/head';
+import style from './Layout.module.css';
+import { useMovies } from '../providers/movies';
 
 type Props = {
-  children?: ReactNode
-  title?: string
-}
+  children?: ReactNode;
+  title?: string;
+};
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
- 
- 
- <div>
-    <Head>
-      <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    </Head>
-    <header className={style.header}><nav className={style.nav}>
-<a className={style.a} href="/">Profile</a> |
+const Layout = ({ children, title = 'Movie Portal' }: Props) => {
+  const { getMovies, searchMovie } = useMovies();
 
-<a className={style.a} href="/movies">My Movies</a> |
-<a className={style.a} href="/movies">My Movies</a> |
+  const searchMovieHandle = (event: ChangeEvent<HTMLInputElement>) => {
+    const search = event.target.value;
+    if (search) {
+      searchMovie(search);
+    } else {
+      getMovies();
+    }
+  };
 
-</nav>
-</header>
-{children}
-<footer className={style.footer}>
-<hr />
-<span>I'm here to stay (Footer)</span>
-</footer>
-</div>
-)
+  const searchFilterHandle = (event: ChangeEvent<HTMLSelectElement>) => {
+    const search = event.target.value;
+    if (search) {
+      searchMovie(search);
+    } else {
+      getMovies();
+    }
+  };
 
-export default Layout
+  return (
+    <div>
+      <Head>
+        <title>{title}</title>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <header className={style.header}>
+        <nav className={style.nav}>
+          <a className={style.a} href="/">
+            Profile
+          </a>
+          |
+          <a className={style.a} href="/movies">
+            My Movies
+          </a>
+          |
+          <a className={style.a} href="/users">
+            Movies
+          </a>
+      
+          {/* <div>
+            <div>
+              <input
+                style={{ marginRight: '50px', fontWeight: 'bold', height: '30px' }}
+                type="text"
+                id="search"
+                placeholder="    Search for movies"
+                name="search"
+                prefix="{<SearchOutlined />}"
+                onChange={searchMovieHandle}
+              />
+            </div>
+
+            <div>
+              <select id="filter" name="category" onChange={searchFilterHandle}>
+                <option value="">All</option>
+                <option value="action">Action</option>
+                <option value="romance">Romance</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="documentary">Documentary</option>
+                <option value="musical">Musical</option>
+                <option value="thriller">Thriller</option>
+              </select>
+            </div>
+          </div> */}
+        </nav>
+      </header>
+      {children}
+      <footer className={style.footer}>
+        <hr />
+        <span>I'm here to stay (Footer)</span>
+      </footer>
+    </div>
+  );
+};
+
+export default Layout;
