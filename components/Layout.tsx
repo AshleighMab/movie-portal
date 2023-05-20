@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Head from 'next/head';
 import style from './Layout.module.css';
 import { useMovies } from '../providers/movies';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Space } from 'antd';
 
 type Props = {
   children?: ReactNode;
@@ -50,6 +52,13 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
           <a className={style.a} href="/users">
             Movies
           </a>
+
+          <Space direction="vertical" size={16}>
+    <Space wrap size={16}>
+      <Avatar size={50} icon={<UserOutlined />} />
+    </Space>
+  
+  </Space>
       
           {/* <div>
             <div>
@@ -80,10 +89,10 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
         </nav>
       </header>
       {children}
-      <footer className={style.footer}>
+      {/* <footer className={style.footer}>
         <hr />
         <span>I'm here to stay (Footer)</span>
-      </footer>
+      </footer> */}
     </div>
   );
 };

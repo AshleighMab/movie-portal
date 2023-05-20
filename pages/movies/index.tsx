@@ -1,56 +1,64 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
 import { Card, Col, Row } from "antd";
 import { IMovie } from "../../providers/movies/context";
+import MyCarousel from "../../components/Carousel";
 
+export const HomeMovies = () => {
+  const { getMovies, MoviesGotten, fetchedMovie, searchMovie } = useMovies();
+  const [movieState, setMoviesState] = useState({} as IMovie);
 
-export const HomeMovies=() => {
-
-  const { getMovies, MoviesGotten, fetchedMovie,  searchMovie } = useMovies();
-  const[movieState, setMoviesState] = useState({} as IMovie);
- 
   getMovies();
 
-console.log("MovieState::", movieState)
+  console.log("MovieState::", movieState);
 
-  const handleMovieClick = (movieid) => { 
+  const handleMovieClick = (movieid) => {
     router.push(`/movie/${movieid.id}`);
   };
 
-
   console.log("This is movies::", MoviesGotten);
+  
   return (
     <Layout>
+
+<MyCarousel/>
+
+    <div>
+      <div className={styles.container}>
     
-        <Row gutter={24}>
+
         {MoviesGotten?.map((movie, index) => (
-          <Col span={4}>
+          <>
           
-              <Card title={movie.title} bordered={false}>
-                <div
-                  className={styles.item}
-                  key={index}
-                  onClick={() => handleMovieClick(movie)}
-                >
-                  <div className={styles.details} key={movie.id}>
-                    <img src={movie.image} className={styles.image} />
-                  </div>
-                  <button onClick={() => handleMovieClick(movie)}>
-                    View Movie
-                  </button>
-                </div>
-              </Card>
-         
-          </Col>
-             ))}
-        </Row>
-   
+            <div title={movie.title} key={movie.id} className={styles.homecard}>
+            <h3 className={styles.title}>{movie.title}</h3>
+              <div
+                className={styles.pic}
+                onClick={() => handleMovieClick(movie)}
+              >
+                <img
+                  src={movie.image}
+                  alt=""
+                  className={styles.image}
+                  width={110}
+                  height={150}
+                />
+              </div>
+              <div className={styles.cardinfo}>
+                
+                <h5>{movie.duration}</h5>
+              </div>
+            </div>
+          </>
+        ))}
+      </div>
+      </div>
+      
     </Layout>
   );
-}
-
+};
 
 export default HomeMovies;

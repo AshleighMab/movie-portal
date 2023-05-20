@@ -1,11 +1,43 @@
+.maincontainer{
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  background-color: black;
+  color: white;  
+}
 .container {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
-    padding: 20px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  column-gap: 1vw;
+  margin-top: 210px;
+  background-color: black;
   }
   
+  .homecard {
+    background-color: black;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-left: 1vw;
+    color:white;
+    margin-right: 10px;
+  margin-bottom: 10px;
+  }
+  .movieList {
+    /* Add any existing styles for the movie list */
+    /* To make the movies start on a new row, add the following style */
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .title {
+    color: white;
+    text-align: center;
+  }
+  .cardinfo {
+    text-align: center;
+    padding-top: 4px;
+    line-height: 15px;
+     
+  }
   .mainMovie {
     flex: 0 0 auto;
     width: 100%;
@@ -39,10 +71,31 @@
     color: #888;
   }
   
-  .image{
+  /* .image{
     height: 150px;
     width: 150px;
+  } */
+  .subheading{
+    color:white;
+
   }
+
+  .heading {
+    /* Add any existing styles for the heading */
+    /* Adjust the margin as needed */
+    color: white;
+  }
+  .pic :hover{
+    transform: scale(1.1);
+    align-items: center;
+  }
+
+  .image {
+    /* object-fit: contain;*/
+    margin-left: 20px;
+    height: 150px;
+    width: 150px;
+    }
 
   .video{
   

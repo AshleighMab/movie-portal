@@ -29,7 +29,7 @@ const MovieProvider = ({ children }) => {
 
   const fetchedMovie =  (movieId: string) => {
     getMovieById({queryParams:{id:movieId}}) 
-    dispatch(SearchMovieRequestAction(IMovie?.result));           
+    dispatch(FetchMovieRequestAction(IMovie?.result));           
   };
 
 

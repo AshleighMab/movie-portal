@@ -2,6 +2,7 @@
     background-color: black;
     padding: 10px;
     text-align: right;
+   
   }
   
 .a {
@@ -37,6 +38,7 @@
     background-color: black;
     color: white;
     padding: 10px;
+    border-bottom: 3px solid white;
     
   }
   .footer {

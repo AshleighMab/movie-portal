@@ -1,0 +1,29 @@
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 10px;
+  }
+  
+  #divLeft {
+    flex: 1;
+    margin-right: 30px;
+  }
+  
+  #divRight {
+    margin-left: 20px;
+    flex: 1;
+    padding: 0 20px;
+  }
+  
+  #movie img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  #divRight p {
+    margin-bottom: 10px;
+  }
+  

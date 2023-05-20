@@ -1,34 +1,34 @@
-// import { useMovies } from "../../providers/movies";
-// import { useParams } from "react-router-dom";
-// import style from './style.module.css'
+import { useMovies } from "../../providers/movies";
+import { useParams } from "react-router-dom";
+import style from './style.module.css'
 
-// const ViewMoviePage = () => {
-//   const { id } = useParams();
-//   const { MovieFetched, fetchedMovie } = useMovies();
-
-
-//   const extractYouTubeVideoId = (url) => {
-//     if (url) {
-//       const trailerId = url.replace('https://youtu.be/', '');
-//       return trailerId;
-//     }
-//     return null;
-//   };
+const ViewMoviePage = () => {
+  const { id } = useParams();
+  const { MovieFetched, fetchedMovie } = useMovies();
 
 
-// const trailerId = extractYouTubeVideoId(MovieFetched.link);
+  const extractYouTubeVideoId = (url) => {
+    if (url) {
+      const trailerId = url.replace('https://youtu.be/', '');
+      return trailerId;
+    }
+    return null;
+  };
 
-//   return (
-//     <div>
+
+const trailerId = extractYouTubeVideoId(MovieFetched.link);
+
+  return (
+    <div>
  
-//           <iframe
-//             className={style.container}
-//             src={`https://www.youtube.com/embed/${trailerId}`}
-//             allowFullScreen
-//           ></iframe>
+          <iframe
+            className={style.container}
+            src={`https://www.youtube.com/embed/${trailerId}`}
+            allowFullScreen
+          ></iframe>
 
-//     </div>
-//   );
-// };
+    </div>
+  );
+};
 
-// export default ViewMoviePage;
+export default ViewMoviePage;
