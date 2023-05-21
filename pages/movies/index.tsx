@@ -3,9 +3,9 @@ import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
-import { Card, Col, Row } from "antd";
 import { IMovie } from "../../providers/movies/context";
 import MyCarousel from "../../components/Carousel";
+
 
 export const HomeMovies = () => {
   const { getMovies, MoviesGotten, fetchedMovie, searchMovie } = useMovies();
@@ -50,6 +50,7 @@ export const HomeMovies = () => {
               <div className={styles.cardinfo}>
                 
                 <h5>{movie.duration}</h5>
+               
               </div>
             </div>
           </>

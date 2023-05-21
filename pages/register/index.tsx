@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import style from '../../pages/register/style.module.css';
 import { useUsers } from '../../providers/users';
 import { IUser } from '../../providers/users/context';
+import { Link } from 'react-router-dom';
 
 type Props = {
     onFormSwitch: (formType: string) => void;
@@ -83,8 +84,8 @@ const SignUp = ({ onFormSwitch }: Props) => {
                                 Register
                             </Button>
 
-                            <Button  id={style.button} onClick={() => onFormSwitch("login")}>
-                                Login
+                            <Button  id={style.button} htmlType="submit" loading={loading} >
+                            <a href="login">Login</a>
                             </Button>
                         </Form.Item>
                     </Form>

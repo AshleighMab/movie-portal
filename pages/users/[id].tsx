@@ -2,6 +2,9 @@ import { useRouter } from "next/router";
 import { useMovies } from "../../providers/movies";
 import { IMovie } from "../../providers/movies/context";
 import style from './style.module.css'
+import Layout from "../../components/Layout";
+import {RollbackOutlined} from '@ant-design/icons';
+
 
 const PlayMovie: React.FC = () => {
   const { MovieFetched, MoviesGotten } = useMovies();
@@ -12,7 +15,7 @@ const PlayMovie: React.FC = () => {
 
 
    const foundMovie = MoviesGotten.find((movie) => movie.id === id);
-   
+   console.log(foundMovie.title);
    const extractYouTubeVideoId = (url) => {
     if (url) {
       const trailerId = url.replace('https://youtu.be/', '');
@@ -26,18 +29,26 @@ const trailerId = extractYouTubeVideoId(foundMovie.link);
 
 
   return (
+    <Layout>
     <>
-   <h1> PLAY THE MOVIE</h1>
-   <div>
- 
- <iframe
-   className={style.container}
-   src={`https://www.youtube.com/embed/${trailerId}`}
+     
+    <div className={style.container}>
+    <h1 >{foundMovie.title}</h1>
+    </div>
+  
+   <div className={style.mainContainer}>
+
+   <iframe
+   src={trailerId}
    allowFullScreen
+   width={900}
+   height={400}
  ></iframe>
 
 </div>
+
     </>
+    </Layout>
   );
 };
 

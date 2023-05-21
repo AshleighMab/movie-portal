@@ -20,11 +20,9 @@
     margin-left: 1vw;
     color:white;
     margin-right: 10px;
-  margin-bottom: 10px;
+    margin-bottom: 10px;
   }
   .movieList {
-    /* Add any existing styles for the movie list */
-    /* To make the movies start on a new row, add the following style */
     display: flex;
     flex-wrap: wrap;
   }
@@ -71,18 +69,12 @@
     color: #888;
   }
   
-  /* .image{
-    height: 150px;
-    width: 150px;
-  } */
   .subheading{
     color:white;
 
   }
 
   .heading {
-    /* Add any existing styles for the heading */
-    /* Adjust the margin as needed */
     color: white;
   }
   .pic :hover{
@@ -91,7 +83,6 @@
   }
 
   .image {
-    /* object-fit: contain;*/
     margin-left: 20px;
     height: 150px;
     width: 150px;

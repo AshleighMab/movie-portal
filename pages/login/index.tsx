@@ -80,16 +80,17 @@ function Login() {
                 <Button className={style.button} htmlType="submit" loading={loading}>
                   Login
                 </Button>
-
+                <Button className={style.button} htmlType="submit" loading={loading}>
+                <Link href="register">Register</Link>
+                </Button>
+              
                 <Link className={style.redirect} href="/movies">My Movies</Link> 
               </Form.Item>
             </Form>
           </div>
         </div>
-        <Link href="register"></Link>
-        <Link style={{ marginRight: "60px" }} href="/movies">
-          Movies
-        </Link>
+        
+       
       </div>
     </Layout>
   );

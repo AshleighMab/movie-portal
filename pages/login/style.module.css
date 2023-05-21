@@ -2,17 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 97vh;
-    background-image: url("../../public/bg.jpg");
+    height: 98vh;
+    background-image: url("../../public/cinema-walk.gif");
     background-size: cover;
 
 }
 
-.h1 {
-    margin-right: 55%;
-    margin-top: -5%;
-
-}
 
 
 .redirect{
@@ -21,27 +16,22 @@
     height: 20px;
     background-color: black;
 }
+
 .form {
     max-width: 500px;
     width: 150%;
     height: 200%;
     padding: 20px;
     border-radius: 5px;
-    background-color: #fff;
-
+    background-color: white;
+    margin-right: 200px;
     box-shadow: 10px 20px 10px rgba(0, 0, 0, 0.1);
-}
-
-.login-form-forgot {
-    float: right;
-}
-
-.login-form-forgot:hover {
-    text-decoration: underline;
+    margin-left: 300px;
+    border: 2px solid white;
 }
 
 .ant-form .ant-form-horizontal .css-dev-only-do-not-override-yp8pcc .login-form {
-    margin-left: 100px;
+    margin-left: 400px;
 }
 
 .ant-form-item-control-input-content {
@@ -126,3 +116,4 @@
     background-color: black;
 
 }
+

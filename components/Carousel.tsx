@@ -1,30 +1,36 @@
-import React from 'react';
-import { Carousel } from 'antd';
-import style from './Carousel.module.css'
+import React, { useEffect, useRef } from 'react';
+import Flipster from 'react-flipster';
 
-const contentStyle: React.CSSProperties = {
-  height: '400px',
-  color: '#fff',
-  lineHeight: '160px',
-  textAlign: 'center',
-  background: '#364d79',
+const AutomaticCarousel = ({ images, interval }) => {
+  const flipsterRef = useRef(null);
+
+  useEffect(() => {
+    let timerId = null;
+
+    const startAutoFlip = () => {
+      timerId = setInterval(() => {
+        flipsterRef.current.next();
+      }, interval);
+    };
+
+    const stopAutoFlip = () => {
+      clearInterval(timerId);
+    };
+
+    startAutoFlip();
+
+    return () => {
+      stopAutoFlip();
+    };
+  }, [interval]);
+
+  return (
+    <Flipster ref={flipsterRef}>
+      {images.map((image, index) => (
+        <img key={index} src={image} alt={`Image ${index}`} />
+      ))}
+    </Flipster>
+  );
 };
 
-const MyCarousel: React.FC = () => (
-  <Carousel className={style.container} autoplay>
-    <div >
-      <h3 style={contentStyle}></h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}></h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}></h3>
-    </div>
-    <div>
-      <h3 style={contentStyle}></h3>
-    </div>
-  </Carousel>
-);
-
-export default MyCarousel;
+export default AutomaticCarousel;

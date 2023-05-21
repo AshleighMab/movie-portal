@@ -52,17 +52,7 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
           <a className={style.a} href="/users">
             Movies
           </a>
-
-          <Space direction="vertical" size={16}>
-    <Space wrap size={16}>
-      <Avatar size={50} icon={<UserOutlined />} />
-    </Space>
-  
-  </Space>
-      
-          {/* <div>
-            <div>
-              <input
+          <input
                 style={{ marginRight: '50px', fontWeight: 'bold', height: '30px' }}
                 type="text"
                 id="search"
@@ -71,9 +61,6 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
                 prefix="{<SearchOutlined />}"
                 onChange={searchMovieHandle}
               />
-            </div>
-
-            <div>
               <select id="filter" name="category" onChange={searchFilterHandle}>
                 <option value="">All</option>
                 <option value="action">Action</option>
@@ -84,8 +71,13 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
                 <option value="musical">Musical</option>
                 <option value="thriller">Thriller</option>
               </select>
-            </div>
-          </div> */}
+          <Space direction="vertical" size={16}>
+    <Space wrap size={16}>
+      <Avatar size={50} icon={<UserOutlined />} />
+    </Space>
+  
+  </Space>
+      
         </nav>
       </header>
       {children}
