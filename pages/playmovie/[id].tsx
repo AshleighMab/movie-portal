@@ -7,7 +7,7 @@ import {RollbackOutlined} from '@ant-design/icons';
 
 
 const PlayMovie: React.FC = () => {
-  const { MovieFetched, MoviesGotten } = useMovies();
+  const { MoviesGotten } = useMovies();
   const router = useRouter();
   const { id } = router.query;
 

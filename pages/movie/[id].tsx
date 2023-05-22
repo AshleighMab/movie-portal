@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useMovies } from "../../providers/movies";
-import { IMovie } from "../../providers/movies/context";
 import style from "./style.module.css";
 import Layout from "../../components/Layout";
 import {
@@ -19,7 +18,7 @@ const Movie: React.FC = () => {
   const foundMovie = MoviesGotten.find((movie) => movie.id === id);
 
   const handleMovieClick = (movieid) => {
-    router.push(`/users/${movieid}`);
+    router.push(`/playmovie/${movieid}`);
   };
 
   const extractYouTubeVideoId = (url) => {
@@ -47,15 +46,15 @@ const Movie: React.FC = () => {
       >
         <div className={style.container}>
           <div className={style.divLeft}>
-            <h1><img
+            <h1>
+              <img
                 src={foundMovie?.image}
                 alt=""
                 className={style.image}
                 width={100}
                 height={110}
-              /> {" "}{" "}
+              />{" "}
               {foundMovie?.title}
-              
             </h1>
             <p style={{ marginBottom: "40px" }}>{foundMovie?.description}</p>
             <p>
@@ -90,9 +89,9 @@ const Movie: React.FC = () => {
 
           <div className={style.divRight}>
             <iframe
-              src={trailerId}
+              src={`https://www.youtube.com/embed/${trailerId}`}
               allowFullScreen
-              width={700}
+              width={900}
               height={400}
             ></iframe>
           </div>

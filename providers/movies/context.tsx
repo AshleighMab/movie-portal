@@ -19,11 +19,13 @@ export interface IMovieStateContext{
   readonly MovieFetched?: IMovie
   readonly MovieDeletedId?: string
   readonly MovieSearched?: IMovie[]
+  readonly isDefault?: boolean
  
 }
 
 export const INITIAL_STATE: IMovieStateContext = {
-  MoviesGotten:[]
+  MoviesGotten:[],
+  isDefault:true
 }
 
 export interface IMovieActionContext{

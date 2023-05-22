@@ -1,36 +1,32 @@
-import React, { useEffect, useRef } from 'react';
-import Flipster from 'react-flipster';
+import React from 'react';
+import { Carousel } from 'antd';
+import style from './Carousel.module.css'
 
-const AutomaticCarousel = ({ images, interval }) => {
-  const flipsterRef = useRef(null);
-
-  useEffect(() => {
-    let timerId = null;
-
-    const startAutoFlip = () => {
-      timerId = setInterval(() => {
-        flipsterRef.current.next();
-      }, interval);
-    };
-
-    const stopAutoFlip = () => {
-      clearInterval(timerId);
-    };
-
-    startAutoFlip();
-
-    return () => {
-      stopAutoFlip();
-    };
-  }, [interval]);
-
-  return (
-    <Flipster ref={flipsterRef}>
-      {images.map((image, index) => (
-        <img key={index} src={image} alt={`Image ${index}`} />
-      ))}
-    </Flipster>
-  );
+const contentStyle: React.CSSProperties = {
+  height: '400px',
+  color: '#fff',
+  lineHeight: '160px',
+  textAlign: 'center',
+  background: '#364d79',
 };
 
-export default AutomaticCarousel;
+const MyCarousel: React.FC = () => (
+  <Carousel className={style.container} autoplay>
+    <div >
+      <h3 style={contentStyle}>  <img src="./sky.jpg"   width={1550}
+                  height={400}/></h3>
+    
+    </div>
+    <div>
+      <h3 style={contentStyle}>  <img src="./Inside-Out-November-Movie-Night-Web-Banner.jpg"   width={1550}
+                  height={400}/></h3>
+    </div>
+    <div>
+      <h3 style={contentStyle}> <img src="./the-avengers-movie-poster-banners-03.jpg"   width={1550}
+                  height={400}/></h3>
+    </div>
+   
+  </Carousel>
+);
+
+export default MyCarousel;

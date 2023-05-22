@@ -4,11 +4,11 @@ import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
 import { IMovie } from "../../providers/movies/context";
-import MyCarousel from "../../components/Carousel";
+ import MyCarousel from "../../components/Carousel";
 
 
 export const HomeMovies = () => {
-  const { getMovies, MoviesGotten, fetchedMovie, searchMovie } = useMovies();
+  const { getMovies, MoviesGotten, fetchedMovie, searchMovie,isDefault } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
 
   getMovies();
@@ -24,13 +24,13 @@ export const HomeMovies = () => {
   return (
     <Layout>
 
-<MyCarousel/>
+{isDefault && < MyCarousel/>}
 
     <div>
+
       <div className={styles.container}>
     
-
-        {MoviesGotten?.map((movie, index) => (
+        {MoviesGotten?.map((movie) => (
           <>
           
             <div title={movie.title} key={movie.id} className={styles.homecard}>

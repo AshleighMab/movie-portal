@@ -23,6 +23,9 @@ export function MovieReducer(
     case MovieActionEnum.FetchMovieRequest:
       return { ...incomingState, ...payload };
 
+      // case MovieActionEnum.setIsDefaultRequestAction:
+      //   return { ...incomingState, ...payload };
+
     case MovieActionEnum.UpdateMovieRequest:
       const { MovieUpdated } = payload;
       const filteredMovies = [...incomingState?.MoviesGotten].filter(

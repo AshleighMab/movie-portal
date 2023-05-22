@@ -16,6 +16,7 @@ import {
   GetMoviesRequestAction,
   FetchMovieRequestAction,
   SearchMovieRequestAction,
+  //  setIsDefaultRequestAction,
 
 } from "./action";
 import { message } from "antd";
@@ -29,11 +30,12 @@ const MovieProvider = ({ children }) => {
 
   const fetchedMovie =  (movieId: string) => {
     getMovieById({queryParams:{id:movieId}}) 
-    dispatch(FetchMovieRequestAction(IMovie?.result));           
+     dispatch(FetchMovieRequestAction(IMovie?.result));           
   };
 
 
   const getMovies = async () => {
+    // dispatch(setIsDefaultRequestAction(true));
     const { data: IMovie } = await useGet({
       path: "Movie/GetAll",
     });
@@ -43,8 +45,27 @@ const MovieProvider = ({ children }) => {
       dispatch(GetMoviesRequestAction(IMovie.result));
       setIsDispatched(true);
     }
+
+  
   };
 
+      const searchMovie = async (searchItem: string) => {
+        //  dispatch(setIsDefaultRequestAction(false));
+       await fetch(`https://localhost:44311/api/services/app/Movie/Search?searchTerm=${searchItem}`, {
+                method: 'GET',
+                cache: "no-cache",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }).then(res => {
+                res.json().then(data => {
+                    dispatch(SearchMovieRequestAction(data.result));
+                    console.log("Something::", data)
+                })
+            })
+        };
+
+    
   // const {refetch:searchForMovie,error:searchError,loading:isSearchingMovie,data:SearchMovie}=useGet({path:'Movie/Search'})
 
   // useEffect(()=>{
@@ -69,7 +90,7 @@ const MovieProvider = ({ children }) => {
 
   return (
     <MovieContext.Provider value={state}>
-      <MovieActionContext.Provider value={{ getMovies, fetchedMovie}}>
+      <MovieActionContext.Provider value={{ getMovies, fetchedMovie, searchMovie}}>
         {children}
       </MovieActionContext.Provider>
     </MovieContext.Provider>

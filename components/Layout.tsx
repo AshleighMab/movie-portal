@@ -18,8 +18,8 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
     const search = event.target.value;
     if (search) {
       searchMovie(search);
-    } else {
-      getMovies();
+    // } else {
+    //   getMovies();
     }
   };
 
@@ -27,8 +27,8 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
     const search = event.target.value;
     if (search) {
       searchMovie(search);
-    } else {
-      getMovies();
+    // } else {
+    //   getMovies();
     }
   };
 

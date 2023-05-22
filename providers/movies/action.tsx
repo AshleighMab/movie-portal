@@ -5,7 +5,8 @@ export enum MovieActionEnum{
     CreateMovieRequest = 'CREATE',
     GetMoviesRequest = 'GET_MOVIES',
     UpdateMovieRequest = 'UPDATE',
-    DeleteMovieRequest = 'DELETE',
+    DeleteMovieRequest = 'DELETE',   
+//  setIsDefaultRequestAction = 'SET_IS_DEFAULT_REQUEST',
     SearchMovieRequest ='SEARCH',
     FetchMovieRequest = 'FETCH'
 }
@@ -16,3 +17,4 @@ export const UpdateMovieRequestAction = createAction<IMovieStateContext, IMovie>
 export const DeleteMovieRequestAction = createAction<IMovieStateContext, string>(MovieActionEnum.DeleteMovieRequest, (MovieDeletedId) => ({MovieDeletedId}));
 export const SearchMovieRequestAction = createAction<IMovieStateContext, IMovie[]>(MovieActionEnum.SearchMovieRequest, (MoviesGotten) => ({MoviesGotten}));
 export const FetchMovieRequestAction = createAction<IMovieStateContext, IMovie>(MovieActionEnum.FetchMovieRequest, (MovieFetched) => ({MovieFetched}));
+//  export const setIsDefaultRequestAction= createAction<IMovieStateContext,boolean>(MovieActionEnum.setIsDefaultRequestAction,(isDefault)=>({isDefault}))
