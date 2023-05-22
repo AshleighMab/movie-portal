@@ -24,12 +24,11 @@ export const HomeMovies = () => {
   return (
     <Layout>
 
-{isDefault && < MyCarousel/>}
-
     <div>
 
+    <h1 className={styles.headingcontainer}>MY WATCH LIST</h1>
       <div className={styles.container}>
-    
+   
         {MoviesGotten?.map((movie) => (
           <>
           
@@ -43,7 +42,7 @@ export const HomeMovies = () => {
                   src={movie.image}
                   alt=""
                   className={styles.image}
-                  width={110}
+                  width={120}
                   height={150}
                 />
               </div>
@@ -56,33 +55,6 @@ export const HomeMovies = () => {
           </>
         ))}
       </div>
-
-      <h1 className={styles.headingcontainer}>Recommended</h1>
-      <div className={styles.container}>
-   
-      {MoviesGotten?.map((movie, index) => (
-  index < 5 && (
-    <>
-      <div title={movie.title} key={movie.id} className={styles.homecard}>
-        <h3 className={styles.title}>{movie.title}</h3>
-        <div className={styles.pic} onClick={() => handleMovieClick(movie)}>
-          <img
-            src={movie.image}
-            alt=""
-            className={styles.image}
-            width={110}
-            height={150}
-          />
-        </div>
-        <div className={styles.cardinfo}>
-          <h5>{movie.duration}</h5>
-        </div>
-      </div>
-    </>
-  )
-))}
-      </div>
-      
       </div>
       
     </Layout>

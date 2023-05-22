@@ -1,5 +1,4 @@
 import React, { ChangeEvent, ReactNode } from 'react';
-import Link from 'next/link';
 import Head from 'next/head';
 import style from './Layout.module.css';
 import { useMovies } from '../providers/movies';
@@ -42,16 +41,16 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
       <header className={style.header}>
         <nav className={style.nav}>
           <a className={style.a} href="/">
-            Profile
+          Home
           </a>
           |
-          <a className={style.a} href="/movies">
-            My Movies
+          <a className={style.a} href="/watchlist">
+          Watch List 
           </a>
-          |
+          {/* |
           <a className={style.a} href="/users">
             Movies
-          </a>
+          </a> */}
           <input
                 style={{ marginRight: '50px', fontWeight: 'bold', height: '30px' }}
                 type="text"
@@ -62,7 +61,7 @@ const Layout = ({ children, title = 'Movie Portal' }: Props) => {
                 onChange={searchMovieHandle}
               />
               <select id="filter" name="category" onChange={searchFilterHandle}>
-                <option value="">All</option>
+                <option value="">Filter</option>
                 <option value="action">Action</option>
                 <option value="romance">Romance</option>
                 <option value="comedy">Comedy</option>

@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
 import { useMovies } from "../../providers/movies";
-import { IMovie } from "../../providers/movies/context";
 import style from './style.module.css'
 import Layout from "../../components/Layout";
-import {RollbackOutlined} from '@ant-design/icons';
 
 
 const PlayMovie: React.FC = () => {
@@ -23,10 +21,8 @@ const PlayMovie: React.FC = () => {
     }
     return null;
   };
-
   
 const trailerId = extractYouTubeVideoId(foundMovie.link);
-
 
   return (
     <Layout>
@@ -38,11 +34,11 @@ const trailerId = extractYouTubeVideoId(foundMovie.link);
   
    <div className={style.mainContainer}>
 
-   <iframe
+   <iframe     
    src={trailerId}
-   allowFullScreen
+   allowFullScreen 
    width={900}
-   height={400}
+   height={400}  
  ></iframe>
 
 </div>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import style from '../../pages/register/style.module.css';
 import { useUsers } from '../../providers/users';
 import { IUser } from '../../providers/users/context';
-import { Link } from 'react-router-dom';
+import Layout from '../../components/Layout'
 
 type Props = {
     onFormSwitch: (formType: string) => void;
@@ -44,6 +44,7 @@ const SignUp = ({ onFormSwitch }: Props) => {
     }
 
     return (
+        <Layout>
         <div>
                          <div className={style.container}>
 
@@ -91,6 +92,7 @@ const SignUp = ({ onFormSwitch }: Props) => {
                     </Form>
                 </div>
         </div>
+        </Layout>
     );
 };
 

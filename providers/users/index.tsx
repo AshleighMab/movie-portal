@@ -44,7 +44,7 @@ const UserProvider = ({ children }) => {
                 dispatch(LoginRequestAction(data.request))
                 if (res.status ==  200) {
                     console.log(res.status)
-    
+                    window.location.href='/movies'
                 }
             })
         })        

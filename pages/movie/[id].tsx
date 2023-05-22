@@ -29,7 +29,7 @@ const Movie: React.FC = () => {
     return null;
   };
 
-  const trailerId = extractYouTubeVideoId(foundMovie.link);
+  const trailerId = extractYouTubeVideoId(foundMovie.trailer);
 
   return (
     <Layout>
@@ -89,7 +89,7 @@ const Movie: React.FC = () => {
 
           <div className={style.divRight}>
             <iframe
-              src={`https://www.youtube.com/embed/${trailerId}`}
+              src={trailerId}
               allowFullScreen
               width={900}
               height={400}

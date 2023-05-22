@@ -1,0 +1,104 @@
+.maincontainer{
+    display: flex;
+    flex-direction: column;
+
+    background-color: black;
+    color: white;  
+  }
+
+  .headingcontainer{
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    column-gap: 1vw;
+    margin-top: 150px;
+    margin-left: 50px;
+    background-color: black;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    column-gap: 1vw;
+    margin-top: 30px;
+    background-color: black;
+    }
+    
+    .homecard {
+      background-color: black;
+      border-radius: 10px;
+      margin-top: 20px;
+      margin-left: 1vw;
+      color:white;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    .movieList {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .title {
+      color: white;
+      text-align: center;
+    }
+    .cardinfo {
+      text-align: center;
+      padding-top: 4px;
+      line-height: 15px;
+       
+    }
+    .mainMovie {
+      flex: 0 0 auto;
+      width: 100%;
+      height: 50%;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    
+    .scrollableContainer {
+      height: 700px;
+      margin-top:20px;
+      display: flex;
+      overflow-x: auto;
+    }
+    
+    .item {
+      flex: 0 0 auto;
+      width: 200px;
+      margin-right: 10px;
+      padding: 10px;
+      background-color: #f1f1f1;
+      text-align: center;
+    }
+    
+    .title {
+      font-weight: bold;
+    }
+    
+    .duration {
+      font-style: italic;
+      color: #888;
+    }
+    
+    .subheading{
+      color:white;
+  
+    }
+  
+    .heading {
+      color: white;
+    }
+    .pic :hover{
+      transform: scale(1.1);
+      align-items: center;
+    }
+  
+    .image {
+      margin-left: 20px;
+      height: 150px;
+      width: 150px;
+      }
+  
+    .video{
+    
+      height: 400px;
+      width: 400px;
+    }

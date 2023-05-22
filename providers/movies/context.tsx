@@ -10,6 +10,7 @@ export interface IMovie {
     category: string
     image:string
     link:string
+    trailer:string
 }
 
 export interface IMovieStateContext{
