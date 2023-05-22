@@ -8,7 +8,7 @@ import { IMovie } from "../../providers/movies/context";
 
 
 export const HomeMovies = () => {
-  const { getMovies, MoviesGotten, fetchedMovie, searchMovie,isDefault } = useMovies();
+  const { getMovies, MoviesGotten,  searchMovie,isDefault } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
 
   getMovies();

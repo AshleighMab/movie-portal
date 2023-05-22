@@ -1,7 +1,8 @@
-import React, { PropsWithChildren, useReducer, useContext, FC } from 'react';
+import React, { PropsWithChildren, useReducer, useContext, FC, useEffect, useState } from 'react';
 import { UserReducer } from './reducer';
 import { IUser, INITIAL_STATE, UserContext, UserActionContext, ILogin } from './context';
 import { CreateUserRequestAction, LoginRequestAction } from './action';
+import { useGet } from "restful-react";
 
 
 const UserProvider = ({ children }) => {
@@ -28,6 +29,27 @@ const UserProvider = ({ children }) => {
         })        
     }
 
+    
+const { refetch: getPersonById, error: personByIdError, loading: isLoadingPerson, data: person } = useGet({
+    path: 'Person/GetPerson'
+})
+
+useEffect(() => {
+  if(!isLoadingPerson && person?.id){
+    console.log('person::', person)
+  }else if(personByIdError){
+    console.log('Error person::', personByIdError)
+  }
+}, [getPersonById, personByIdError, isLoadingPerson])
+
+
+
+const getUserInfo = (id: number) => {
+    getPersonById({ queryParams: { id: id } }).then((data) => {
+        console.log('userD::', data.result)
+        localStorage.setItem('userDetails', JSON.stringify(data.result))
+    })
+}
 
     const login = async (payload: ILogin) => {
         await fetch('https://localhost:44311/api/TokenAuth/Authenticate', {
@@ -50,15 +72,19 @@ const UserProvider = ({ children }) => {
         })        
     }
 
+
+    
+
     return (
         <UserContext.Provider value={state}>
-            <UserActionContext.Provider value={{ createUser, login}}>      
+            <UserActionContext.Provider value={{ createUser, login, getUserInfo}}>      
                 {children}
             </UserActionContext.Provider>
         </UserContext.Provider>
 
     )
 }
+
 
 function useUserState() {
     const context = useContext(UserContext);

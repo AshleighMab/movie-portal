@@ -18,6 +18,7 @@ export interface ILogin{
 export interface IUserStateContext{
     readonly UserCreated?: IUser;
     readonly Login?: ILogin;
+    readonly UserInfo?:IUser;
 }
 
 
@@ -26,6 +27,7 @@ export const INITIAL_STATE: IUserStateContext = {}
 export interface IUserActionContext{
     createUser?:(payload:IUser)=> void;
     login?:(payload:ILogin)=>void;
+    getUserInfo?: (payload:number) => void;
 }
 
 const UserContext = createContext<IUserStateContext>(INITIAL_STATE);

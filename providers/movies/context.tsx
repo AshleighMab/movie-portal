@@ -35,7 +35,7 @@ export interface IMovieActionContext{
     updateMovie?: (payload:IMovie) => void;
     deleteMovie?: (payload:string) => void;
     searchMovie?: (payload:string) => void;
-    fetchedMovie?: (payload:string) => void;
+    fetchMovie?: (payload:string) => void;
 }
 
 const MovieContext = createContext<IMovieStateContext>({});

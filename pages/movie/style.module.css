@@ -12,6 +12,15 @@
 
   }
   
+  .Imagecontainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .title {
+    margin-left: 10px; /* Adjust this value to add space between the image and the title */
+  }
+
   .divLeft {
     flex: 1;
     margin-left: 100px;

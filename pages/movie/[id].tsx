@@ -7,15 +7,25 @@ import {
   LikeOutlined,
   DislikeOutlined,
 } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { IMovie } from "../../providers/movies/context";
 
 const Movie: React.FC = () => {
   const { MovieFetched, MoviesGotten } = useMovies();
+  const [movieState, setMoviesState] = useState({} as IMovie);
   const router = useRouter();
   const { id } = router.query;
 
-  console.log("MyID::", id);
-
   const foundMovie = MoviesGotten.find((movie) => movie.id === id);
+
+  // useEffect(() => {
+
+  //   return () => {
+  //     second
+  //   }
+  // }, [third])
+
+  console.log("MyID::", id);
 
   const handleMovieClick = (movieid) => {
     router.push(`/playmovie/${movieid}`);
@@ -46,16 +56,17 @@ const Movie: React.FC = () => {
       >
         <div className={style.container}>
           <div className={style.divLeft}>
-            <h1>
+            <div className={style.Imagecontainer}>
               <img
                 src={foundMovie?.image}
                 alt=""
                 className={style.image}
                 width={100}
-                height={110}
-              />{" "}
-              {foundMovie?.title}
-            </h1>
+                height={120}
+              />
+              <h1 className={style.title}>{foundMovie?.title}</h1>
+            </div>
+
             <p style={{ marginBottom: "40px" }}>{foundMovie?.description}</p>
             <p>
               <b>Category: </b>
@@ -91,7 +102,7 @@ const Movie: React.FC = () => {
             <iframe
               src={trailerId}
               allowFullScreen
-              width={900}
+              width={750}
               height={400}
             ></iframe>
           </div>

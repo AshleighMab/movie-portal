@@ -28,7 +28,7 @@ const MovieProvider = ({ children }) => {
   const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
 
 
-  const fetchedMovie =  (movieId: string) => {
+  const fetchMovie =  (movieId: string) => {
     getMovieById({queryParams:{id:movieId}}) 
      dispatch(FetchMovieRequestAction(IMovie?.result));           
   };
@@ -45,10 +45,9 @@ const MovieProvider = ({ children }) => {
       dispatch(GetMoviesRequestAction(IMovie.result));
       setIsDispatched(true);
     }
-
-  
   };
 
+ 
       const searchMovie = async (searchItem: string) => {
         //  dispatch(setIsDefaultRequestAction(false));
        await fetch(`https://localhost:44311/api/services/app/Movie/Search?searchTerm=${searchItem}`, {
@@ -90,7 +89,7 @@ const MovieProvider = ({ children }) => {
 
   return (
     <MovieContext.Provider value={state}>
-      <MovieActionContext.Provider value={{ getMovies, fetchedMovie, searchMovie}}>
+      <MovieActionContext.Provider value={{ getMovies, fetchMovie, searchMovie}}>
         {children}
       </MovieActionContext.Provider>
     </MovieContext.Provider>

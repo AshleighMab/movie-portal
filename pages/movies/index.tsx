@@ -8,10 +8,16 @@ import { IMovie } from "../../providers/movies/context";
 
 
 export const HomeMovies = () => {
-  const { getMovies, MoviesGotten, fetchedMovie, searchMovie,isDefault } = useMovies();
+  const { getMovies, MoviesGotten, fetchMovie, searchMovie,isDefault } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
+  const [watchlist, setWatchlist] = useState<IMovie[]>([]);
 
   getMovies();
+
+
+  const addToWatchlist = (movie: IMovie) => {
+    setWatchlist(prevWatchlist => [...prevWatchlist, movie]);
+  };
 
   console.log("MovieState::", movieState);
 
@@ -43,13 +49,12 @@ export const HomeMovies = () => {
                   src={movie.image}
                   alt=""
                   className={styles.image}
-                  width={110}
-                  height={150}
                 />
               </div>
               <div className={styles.cardinfo}>
                 
                 <h5>{movie.duration}</h5>
+                <button onClick={() => addToWatchlist(movie)}>Add to Watchlist</button>
                
               </div>
             </div>
