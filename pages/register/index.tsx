@@ -44,7 +44,7 @@ const SignUp = ({ onFormSwitch }: Props) => {
     }
 
     return (
-        <Layout>
+       
         <div>
                          <div className={style.container}>
 
@@ -92,7 +92,7 @@ const SignUp = ({ onFormSwitch }: Props) => {
                     </Form>
                 </div>
         </div>
-        </Layout>
+      
     );
 };
 

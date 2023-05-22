@@ -5,6 +5,10 @@ import { useMovies } from "../providers/movies";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
 import { useUsers } from "../providers/users";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { useRouter } from 'next/router';
 
 type Props = {
   children?: ReactNode;
@@ -14,7 +18,7 @@ type Props = {
 const Layout = ({ children, title = "Movie Portal" }: Props) => {
   const { getMovies, searchMovie } = useMovies();
   const { getUserInfo } = useUsers();
-
+  const router = useRouter();
   const searchMovieHandle = (event: ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
     if (search) {
@@ -32,6 +36,14 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
       //   getMovies();
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.clear();
+    router.push('/login'); // Redirect to the login page
+  }
+
+  const isLoginPage = router.pathname === '/login';
 
   return (
     <div>
@@ -54,7 +66,7 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             Movies
           </a> */}
           <input
-            style={{ marginRight: "50px", fontWeight: "bold", height: "30px" }}
+            style={{ marginRight: "40px", fontWeight: "bold", height: "20px" }}
             type="text"
             id="search"
             placeholder="    Search for movies"
@@ -72,11 +84,16 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             <option value="musical">Musical</option>
             <option value="thriller">Thriller</option>
           </select>
-          <Space direction="vertical" size={16}>
+          <Space   style={{ marginRight: "20px", marginLeft:"20px" }} direction="vertical" size={16}>
             <Space wrap size={16}>
               <Avatar size={50} icon={<UserOutlined />} />
             </Space>
           </Space>
+          {!isLoginPage && (
+            <button style={{ marginRight: '40px' }} onClick={handleLogout}>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </button>
+          )}
         </nav>
       </header>
       {children}

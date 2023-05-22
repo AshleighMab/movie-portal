@@ -36,7 +36,7 @@ function Login() {
     }
   };
   return (
-    <Layout>
+ 
       <div>
         <div className={style.container}>
           <div className={style.wrapper}>
@@ -92,7 +92,7 @@ function Login() {
         
        
       </div>
-    </Layout>
+   
   );
 }
 
