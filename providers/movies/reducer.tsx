@@ -1,5 +1,5 @@
 import { MovieActionEnum } from "./action";
-import { IMovieStateContext } from "./context";
+import { IMovie, IMovieStateContext } from "./context";
 
 export function MovieReducer(
   incomingState: IMovieStateContext,
@@ -43,6 +43,24 @@ export function MovieReducer(
       );
       return { ...incomingState, MoviesGotten: [...filtered] };
 
+
+      case MovieActionEnum.addToListRequest:
+
+      const newItem = { ...payload.WatchListMovie, quantity: 1 }
+      return {
+          ...incomingState,
+          WatchList: [...(incomingState.WatchList as IMovie[]), newItem]
+      }
+  case MovieActionEnum.removeFromListRequest:
+      return {
+          ...incomingState,
+          WatchList: (incomingState.WatchList as IMovie[]).filter((item) => item.id !== action.payload.WatchListMovie.id),
+      }
+  case MovieActionEnum.clearListRequest:
+      return {
+          ...incomingState,
+          WatchList: [],
+      }
     default:
       return incomingState;
   }

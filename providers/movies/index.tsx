@@ -11,11 +11,15 @@ import {
   INITIAL_STATE,
   MovieContext,
   MovieActionContext,
+  IMovie,
 } from "./context";
 import {
   GetMoviesRequestAction,
   FetchMovieRequestAction,
   SearchMovieRequestAction,
+  addToListRequestAction,
+  removeFromListRequestAction,
+  clearListRequestAction
   //  setIsDefaultRequestAction,
 
 } from "./action";
@@ -25,13 +29,13 @@ const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
   const [isDispatched, setIsDispatched] = useState(false);
 
-  const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
+  // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
 
 
-  const fetchMovie =  (movieId: string) => {
-    getMovieById({queryParams:{id:movieId}}) 
-     dispatch(FetchMovieRequestAction(IMovie?.result));           
-  };
+  // const fetchMovie =  (movieId: string) => {
+  //   getMovieById({queryParams:{id:movieId}}) 
+  //    dispatch(FetchMovieRequestAction(IMovie?.result));           
+  // };
 
 
   const getMovies = async () => {
@@ -64,6 +68,18 @@ const MovieProvider = ({ children }) => {
             })
         };
 
+        const addToList = (movie: IMovie) => {
+      
+          dispatch(addToListRequestAction(movie))          
+      };
+  
+      const removeFromList = (movie: IMovie) => {
+          dispatch(removeFromListRequestAction(movie))        
+      }
+  
+      const clearList =()=>{
+          dispatch(clearListRequestAction())
+      }
     
   // const {refetch:searchForMovie,error:searchError,loading:isSearchingMovie,data:SearchMovie}=useGet({path:'Movie/Search'})
 
@@ -89,7 +105,7 @@ const MovieProvider = ({ children }) => {
 
   return (
     <MovieContext.Provider value={state}>
-      <MovieActionContext.Provider value={{ getMovies, fetchMovie, searchMovie}}>
+      <MovieActionContext.Provider value={{ getMovies, searchMovie, addToList, removeFromList, clearList}}>
         {children}
       </MovieActionContext.Provider>
     </MovieContext.Provider>

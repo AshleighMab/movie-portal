@@ -8,7 +8,8 @@ import { useUsers } from "../providers/users";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
+import BadgeIcon from "./BadgeIcon";
 
 type Props = {
   children?: ReactNode;
@@ -38,12 +39,12 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     localStorage.clear();
-    router.push('/login'); // Redirect to the login page
-  }
+    router.push("/login"); // Redirect to the login page
+  };
 
-  const isLoginPage = router.pathname === '/login';
+  const isLoginPage = router.pathname === "/login";
 
   return (
     <div>
@@ -58,9 +59,14 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             Home
           </a>
           |
-          <a className={style.a} href="/watchlist">
-            Watch List
-          </a>
+        
+            <a className={style.a} href="/watchlist">
+              <>
+                <BadgeIcon />
+                Watch List
+              </>
+            </a>
+          
           {/* |
           <a className={style.a} href="/users">
             Movies
@@ -84,13 +90,17 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             <option value="musical">Musical</option>
             <option value="thriller">Thriller</option>
           </select>
-          <Space   style={{ marginRight: "20px", marginLeft:"20px" }} direction="vertical" size={16}>
+          <Space
+            style={{ marginRight: "20px", marginLeft: "20px" }}
+            direction="vertical"
+            size={16}
+          >
             <Space wrap size={16}>
               <Avatar size={50} icon={<UserOutlined />} />
             </Space>
           </Space>
           {!isLoginPage && (
-            <button style={{ marginRight: '40px' }} onClick={handleLogout}>
+            <button style={{ marginRight: "40px" }} onClick={handleLogout}>
               <FontAwesomeIcon icon={faSignOutAlt} />
             </button>
           )}

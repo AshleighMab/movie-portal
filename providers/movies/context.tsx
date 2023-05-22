@@ -1,16 +1,16 @@
 import { createContext } from 'react'
 
 export interface IMovie {
-    find: any
+    find?: any
     id?:string
-    title: string
-    duration: string
-    description: string
-    starring: string
-    category: string
-    image:string
-    link:string
-    trailer:string
+    title?: string
+    duration?: string
+    description?: string
+    starring?: string
+    category?: string
+    image?:string
+    link?:string
+    trailer?:string
 }
 
 export interface IMovieStateContext{
@@ -21,12 +21,16 @@ export interface IMovieStateContext{
   readonly MovieDeletedId?: string
   readonly MovieSearched?: IMovie[]
   readonly isDefault?: boolean
+  readonly WatchListMovie?: IMovie
+  readonly WatchList?: IMovie[]
  
 }
 
 export const INITIAL_STATE: IMovieStateContext = {
   MoviesGotten:[],
-  isDefault:true
+  WatchListMovie:{},
+  WatchList:[],
+  // isDefault:true
 }
 
 export interface IMovieActionContext{
@@ -36,6 +40,9 @@ export interface IMovieActionContext{
     deleteMovie?: (payload:string) => void;
     searchMovie?: (payload:string) => void;
     fetchMovie?: (payload:string) => void;
+    addToList?: (payload:IMovie) => void;
+    removeFromList?: (payload:IMovie) => void;
+    clearList?: () => void;
 }
 
 const MovieContext = createContext<IMovieStateContext>({});

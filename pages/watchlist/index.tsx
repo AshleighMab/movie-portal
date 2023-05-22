@@ -1,62 +1,90 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
-import router from "next/router";
-import { IMovie } from "../../providers/movies/context";
- import MyCarousel from "../../components/Carousel";
-
+import router, { useRouter } from "next/router";
+import { IMovie, MovieContext } from "../../providers/movies/context";
+import MyCarousel from "../../components/Carousel";
+import Link from "next/link";
 
 export const HomeMovies = () => {
-  const { getMovies, MoviesGotten,  searchMovie,isDefault } = useMovies();
+  const { WatchList } = useContext(MovieContext);
+  const { clearList } = useMovies();
+  //const { currentUser } = useUser();
+  const { push } = useRouter();
+
+  const handleClear = () => {
+    clearList();
+  };
+
+  const { getMovies, MoviesGotten, searchMovie, isDefault } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
 
-  getMovies();
-
-  console.log("MovieState::", movieState);
+  console.log("watchlist", WatchList);
 
   const handleMovieClick = (movieid) => {
     router.push(`/movie/${movieid.id}`);
   };
 
   console.log("This is movies::", MoviesGotten);
-  
+
   return (
     <Layout>
-
-    <div>
-
-    <h1 className={styles.headingcontainer}>MY WATCH LIST</h1>
       <div className={styles.container}>
-   
-        {MoviesGotten?.map((movie) => (
+        {WatchList?.length === 0 ? (
+          <div className={styles.cartEmpty}>
+            <p>Your cart is currently empty</p>
+
+            <Link href="/movies">
+              <button className={styles.startShopping}>See movies</button>
+            </Link>
+          </div>
+        ) : (
           <>
-          
-            <div title={movie.title} key={movie.id} className={styles.homecard}>
-            <h3 className={styles.title}>{movie.title}</h3>
-              <div
-                className={styles.pic}
-                onClick={() => handleMovieClick(movie)}
-              >
-                <img
-                  src={movie.image}
-                  alt=""
-                  className={styles.image}
-                  width={120}
-                  height={150}
-                />
-              </div>
-              <div className={styles.cardinfo}>
+            <h2>Watch List</h2>
+
+            <div className={styles.cartItems}>
+              {WatchList?.map((movie) => (
+                <div key={movie.id} className={styles.cartItem}>
+                  <div className={styles.cartProduct}>
                 
-                <h5>{movie.duration}</h5>
-               
+                    <div
+                      title={movie.title}
+                      key={movie.id}
+                      className={styles.homecard}
+                    >
+                      <h3 className={styles.title}>{movie.title}</h3>
+                      <div
+                        className={styles.pic}
+                        onClick={() => handleMovieClick(movie)}
+                      >
+                        <img
+                          src={movie.image}
+                          alt=""
+                          className={styles.image}
+                        />
+                      </div>
+                      <div className={styles.cardinfo}>
+                        <h5>{movie.duration}</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              <div className={styles.cartSummary}>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => handleClear()}
+                >
+                  Clear Cart
+                </button>
+             
               </div>
             </div>
           </>
-        ))}
+        )}
       </div>
-      </div>
-      
     </Layout>
   );
 };
