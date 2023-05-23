@@ -75,7 +75,7 @@ export const HomeMovies = () => {
           ))}
         </div>
 
-        <h1 className={styles.headingcontainer}>Recommended</h1>
+        {/* <h1 className={styles.headingcontainer}>Recommended</h1>
         <div className={styles.container}>
           {MoviesGotten?.map(
             (movie, index) =>
@@ -105,8 +105,8 @@ export const HomeMovies = () => {
                   </div>
                 </>
               )
-          )}
-        </div>
+          )} */}
+        {/* </div> */}
       </div>
     </Layout>
   );

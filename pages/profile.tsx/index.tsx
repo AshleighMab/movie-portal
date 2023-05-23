@@ -1,29 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useGet } from "restful-react";
+import { useUsers } from "../../providers/users";
 
 
-const People = () => {
-    
-  const { data:Mypeople} = useGet({
-        path: "/Person/GetAll",
-      });
-      
+const UserInf = () => {
+  const { getUserInfo } = useUsers();
 
-    if(!Mypeople){
-      return <h1>Loading</h1>
-    } 
-    const person = {
-      Mypeople
-    }
-  
-    console.log('Person::', person.Mypeople.result)
-  
-    return (
-      <div>
-              <h1>Person Name:  {person.Mypeople.result[2].name}</h1>
-      </div>
-    );
-  };
-  
-  export default People;
+  useEffect(() => {
+    const userDetails = localStorage.getItem('userDetails'); 
+   
+console.log("MY USER::", userDetails) 
+  }, []);
+
+  return (
+    <div>
+      <h1>This is the profile page</h1>
+    </div>
+  );
+};
+
+export default UserInf;
+
+function getUserIdFromToken(token: string) {
+  throw new Error("Function not implemented.");
+}
   

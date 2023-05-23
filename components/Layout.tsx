@@ -19,25 +19,30 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
   const { getMovies, searchMovie } = useMovies();
   const { getUserInfo } = useUsers();
   const router = useRouter();
-  const searchMovieHandle = (event: ChangeEvent<HTMLInputElement>) => {
-    const search = event.target.value;
-    if (search) {
-      searchMovie(search);
-    }
-  };
+  // const searchMovieHandle = (event: ChangeEvent<HTMLInputElement>) => {
+  //   const search = event.target.value;
+  //   if (search) {
+  //     searchMovie(search);
+  //   }
+  // };
 
-  const searchFilterHandle = (event: ChangeEvent<HTMLSelectElement>) => {
-    const search = event.target.value;
-    if (search) {
-      searchMovie(search);
-    }
-  };
+  // const searchFilterHandle = (event: ChangeEvent<HTMLSelectElement>) => {
+  //   const search = event.target.value;
+  //   if (search) {
+  //     searchMovie(search);
+  //   }
+  // };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.clear();
     router.push("/login");
   };
+
+  const handleProfile = () => {
+    router.push("/profile");
+  };
+
 
   const isLoginPage = router.pathname === "/login";
 
@@ -50,17 +55,22 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
       </Head>
       <header className={style.header}>
         <nav className={style.nav}>
-          <a className={style.a} href="/">
+          <a className={style.a} href="/home">
             Home
           </a>
           |
+          <a className={style.a} href="/all_movies">
+            All Movies
+          </a>
+          | 
           <a className={style.a} href="/watchlist">
             <>
               Watch List
               <BadgeIcon />
             </>
           </a>
-          <input
+
+          {/* <input
             style={{ marginRight: "40px", fontWeight: "bold", height: "20px" }}
             type="text"
             id="search"
@@ -83,11 +93,12 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             <option value="documentary">Documentary</option>
             <option value="musical">Musical</option>
             <option value="thriller">Thriller</option>
-          </select>
+          </select> */}
           <Space
             style={{ marginRight: "20px", marginLeft: "20px" }}
             direction="vertical"
             size={16}
+            onClick={handleProfile}
           >
             <Space wrap size={16}>
               <Avatar size={50} icon={<UserOutlined />} />

@@ -25,6 +25,7 @@ const PlayMovie: React.FC = () => {
   return (
     <Layout>
       <div
+        className={style.mainContainer}
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url(${foundMovie?.image})`,
           backgroundSize: "cover",
@@ -32,18 +33,21 @@ const PlayMovie: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className={style.container}>
-          <h1>{foundMovie.title}</h1>
-        </div>
+      <div className={style.container}>
+  <div className={style.titleContainer}>
+    <h1>{foundMovie?.title}</h1>
+  </div>
+  <div className={style.movieContainer}>
+    <iframe
+      src={trailerId}
+      allowFullScreen
+      width={1000}
+      height={450}
+    ></iframe>
+  </div>
+</div>
 
-        <div className={style.mainContainer}>
-          <iframe
-            src={trailerId}
-            allowFullScreen
-            width={1000}
-            height={450}
-          ></iframe>
-        </div>
+       
       </div>
     </Layout>
   );

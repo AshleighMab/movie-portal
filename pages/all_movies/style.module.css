@@ -1,41 +1,53 @@
 .maincontainer{
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
-
+  
     background-color: rgb(54, 50, 50);
     color: white;  
   }
-
-  .headingcontainer{
-    display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
-    column-gap: 1vw;
-    margin-top: 150px;
-    margin-left: 50px;
-    background-color:rgb(54, 50, 50);
-  }
-
-  .noList{
-    margin-top: 180px;
-    background-color:rgb(54, 50, 50);
-    text-align: center;
-  }
   .container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
-    column-gap: 1vw;
-    margin-top: 120px;
-    background-color:rgb(54, 50, 50);
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 0 30px;
+    overflow: hidden;
+    background-color: rgb(54, 50, 50);
     }
     
+   
+    .filters{
+        display: flex;
+  justify-content: center;
+  align-items: center;
+
+    }
+    .filter{
+        height: 45px ;
+        width:155px;
+    }
+
+    .search{
+        margin-Right: 40px;
+         font-Weight: bold;
+          height: 40px;
+          width:150px;
+    }
+
     .homecard {
-      background-color: rgb(54, 50, 50);
-      border-radius: 10px;
-      margin-top: 20px;
-      margin-left: 1vw;
-      color:white;
-      margin-right: 10px;
-      margin-bottom: 10px;
+        background-color: rgb(97, 93, 93);
+        border-radius: 10px;
+        margin-top: 50px;
+        margin-left: 1vw;
+        color: white;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      
     }
     .movieList {
       display: flex;
@@ -50,6 +62,15 @@
       padding-top: 4px;
       line-height: 15px;
        
+    }
+    .headingcontainer{
+      display: grid;
+      grid-template-columns: auto auto auto auto auto auto auto;
+      column-gap: 1vw;
+      margin-top: 40px;
+      margin-left: 50px;
+      font-size: 50px;
+      background-color: rgb(3, 3, 3);
     }
     .mainMovie {
       flex: 0 0 auto;
@@ -92,14 +113,15 @@
     .heading {
       color: white;
     }
+    
     .pic :hover{
       transform: scale(1.1);
       align-items: center;
     }
   
     .image {
-      margin-left: 20px;
-      height: 150px;
+
+      height: 200px;
       width: 150px;
       }
   

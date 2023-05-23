@@ -1,6 +1,5 @@
 .nav {
-    background-color: black;
-    padding: 10px;
+    background-color: rgb(42, 40, 40);
     text-align: right;
    
   }
@@ -20,7 +19,7 @@
     top: 10px;
     right: 10px;
     width: 40px;
-    height: 20px;
+    height: 15px;
     border-radius: 50%;
     background-color: gray;
     color: white;
@@ -35,10 +34,10 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: black;
+    background-color:rgb(42, 40, 40);
     color: white;
-    padding: 10px;
-    border-bottom: 3px solid white;
+    padding: 5px;
+    border-bottom: 1px solid white;
     
   }
   .footer {
