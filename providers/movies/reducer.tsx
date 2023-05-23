@@ -23,6 +23,9 @@ export function MovieReducer(
     case MovieActionEnum.FetchMovieRequest:
       return { ...incomingState, ...payload };
 
+      case MovieActionEnum.RateMovieRequest:
+        return { ...incomingState, ...payload };
+
       // case MovieActionEnum.setIsDefaultRequestAction:
       //   return { ...incomingState, ...payload };
 

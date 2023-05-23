@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import { MovieReducer } from "./reducer";
-import { useGet } from "restful-react";
+import { useGet, useMutate } from "restful-react";
 import {
   INITIAL_STATE,
   MovieContext,
@@ -19,7 +19,9 @@ import {
   SearchMovieRequestAction,
   addToListRequestAction,
   removeFromListRequestAction,
-  clearListRequestAction
+  clearListRequestAction,
+  RateMovieRequestAction
+
   //  setIsDefaultRequestAction,
 
 } from "./action";
@@ -51,7 +53,16 @@ const MovieProvider = ({ children }) => {
     }
   };
 
- 
+  const {mutate: rateHttp} = useMutate({
+    verb: 'POST',
+    path: `Movie/AddRating`,
+  });
+
+const rateMovie = async (payload: IMovie) => {
+    dispatch(RateMovieRequestAction(payload));
+    rateHttp(payload)
+  };
+  
       const searchMovie = async (searchItem: string) => {
         //  dispatch(setIsDefaultRequestAction(false));
        await fetch(`https://localhost:44311/api/services/app/Movie/Search?searchTerm=${searchItem}`, {
@@ -105,7 +116,7 @@ const MovieProvider = ({ children }) => {
 
   return (
     <MovieContext.Provider value={state}>
-      <MovieActionContext.Provider value={{ getMovies, searchMovie, addToList, removeFromList, clearList}}>
+      <MovieActionContext.Provider value={{ getMovies, searchMovie, addToList, removeFromList, clearList, rateMovie}}>
         {children}
       </MovieActionContext.Provider>
     </MovieContext.Provider>

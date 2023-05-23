@@ -11,6 +11,8 @@ export interface IMovie {
     image?:string
     link?:string
     trailer?:string
+    rating?:number
+    totalpeople?:number
 }
 
 export interface IMovieStateContext{
@@ -21,6 +23,7 @@ export interface IMovieStateContext{
   readonly MovieDeletedId?: string
   readonly MovieSearched?: IMovie[]
   readonly isDefault?: boolean
+  readonly ratedMovie?: IMovie
   readonly WatchListMovie?: IMovie
   readonly WatchList?: IMovie[]
  
@@ -43,6 +46,7 @@ export interface IMovieActionContext{
     addToList?: (payload:IMovie) => void;
     removeFromList?: (payload:IMovie) => void;
     clearList?: () => void;
+    rateMovie?: (payload:IMovie) => void;
 }
 
 const MovieContext = createContext<IMovieStateContext>({});

@@ -11,19 +11,44 @@ import { useEffect, useState } from "react";
 import { IMovie } from "../../providers/movies/context";
 
 const Movie: React.FC = () => {
-  const { MovieFetched, MoviesGotten } = useMovies();
+  const { MovieFetched, MoviesGotten, rateMovie } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
   const router = useRouter();
   const { id } = router.query;
+  const [rate, setRating] = useState(0);
+  
 
   const foundMovie = MoviesGotten.find((movie) => movie.id === id);
-  
+
   console.log("MyID::", id);
 
   const handleMovieClick = (movieid) => {
     router.push(`/playmovie/${movieid}`);
   };
 
+  const handleNewRating = (newRating) =>{
+   setRating(newRating);
+   
+    const x : IMovie= {
+        id: foundMovie.id,
+        title: '',
+        duration: '',
+        category: '',
+        starring: '',
+        description: '',
+        image: '',
+        link: '',
+        trailer:" ",
+        rating: newRating,
+    
+    }
+    rateMovie(x);
+    console.log(`${foundMovie.title} rated:::`, newRating)
+  
+}
+
+
+  
   const extractYouTubeVideoId = (url) => {
     if (url) {
       const trailerId = url.replace("https://youtu.be/", "");
@@ -86,6 +111,7 @@ const Movie: React.FC = () => {
                   marginTop: "20px",
                   paddingLeft: "20px",
                 }}
+                onClick={() => handleNewRating(1)}
               />
               <DislikeOutlined style={{ paddingRight: "20px" }} />
             </div>
