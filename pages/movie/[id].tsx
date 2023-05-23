@@ -17,14 +17,7 @@ const Movie: React.FC = () => {
   const { id } = router.query;
 
   const foundMovie = MoviesGotten.find((movie) => movie.id === id);
-
-  // useEffect(() => {
-
-  //   return () => {
-  //     second
-  //   }
-  // }, [third])
-
+  
   console.log("MyID::", id);
 
   const handleMovieClick = (movieid) => {

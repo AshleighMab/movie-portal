@@ -49,32 +49,32 @@ const SignUp = ({ onFormSwitch }: Props) => {
                          <div className={style.container}>
 
                     <Form className={style.form} layout="vertical" onFinish={onFinish}>
-                        <Form.Item name="userName" label="UserName">
-                            <Input value={userName} onChange={e => setUserName(e.target.value)} />
+                        <Form.Item name="userName"className={style.label} >
+                            <Input value={userName} placeholder="Username"onChange={e => setUserName(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item name="name" label="First Name">
-                            <Input value={name} onChange={e => setName(e.target.value)} />
+                        <Form.Item name="name" className={style.label} >
+                            <Input  placeholder="First Name" value={name} onChange={e => setName(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item name="surname" label="Last Name">
-                            <Input value={surname} onChange={e => setSurname(e.target.value)} />
+                        <Form.Item name="surname" className={style.label} >
+                            <Input  placeholder="Last Name" value={surname} onChange={e => setSurname(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item name="password" label="Password">
-                            <Input.Password value={password} onChange={e => setPassword(e.target.value)} />
+                        <Form.Item name="password" className={style.label}  >
+                            <Input.Password placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item name="phoneNumber" label="Phone Number">
-                            <Input value={phoneNumber} onChange={e => setNumber(e.target.value)} />
+                        <Form.Item name="phoneNumber" className={style.label}  >
+                            <Input  placeholder="Phone Number" value={phoneNumber} onChange={e => setNumber(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item name="emailAddress" label="Email Address">
-                            <Input value={emailAddress} onChange={e => setEmail(e.target.value)} />
+                        <Form.Item name="emailAddress" className={style.label} >
+                            <Input  placeholder="Email Address" value={emailAddress} onChange={e => setEmail(e.target.value)} />
                         </Form.Item>
 
-                        <Form.Item name="gender" label="Gender">
-                            <Select value={gender} onChange={value => setGender(value === 'male' ? '1' : '2')}>
+                        <Form.Item name="gender" className={style.label}  >
+                            <Select placeholder="Gender" value={gender} onChange={value => setGender(value === 'male' ? '1' : '2')}>
                                 <Select.Option value="male">Male</Select.Option>
                                 <Select.Option value="female">Female</Select.Option>
                             </Select>

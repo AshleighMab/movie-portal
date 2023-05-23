@@ -7,7 +7,6 @@ import { Avatar, Space } from "antd";
 import { useUsers } from "../providers/users";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import BadgeIcon from "./BadgeIcon";
 
@@ -24,8 +23,6 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
     const search = event.target.value;
     if (search) {
       searchMovie(search);
-      // } else {
-      //   getMovies();
     }
   };
 
@@ -33,15 +30,13 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
     const search = event.target.value;
     if (search) {
       searchMovie(search);
-      // } else {
-      //   getMovies();
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.clear();
-    router.push("/login"); // Redirect to the login page
+    router.push("/login");
   };
 
   const isLoginPage = router.pathname === "/login";
@@ -59,18 +54,12 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             Home
           </a>
           |
-        
-            <a className={style.a} href="/watchlist">
-              <>
-                <BadgeIcon />
-                Watch List
-              </>
-            </a>
-          
-          {/* |
-          <a className={style.a} href="/users">
-            Movies
-          </a> */}
+          <a className={style.a} href="/watchlist">
+            <>
+              Watch List
+              <BadgeIcon />
+            </>
+          </a>
           <input
             style={{ marginRight: "40px", fontWeight: "bold", height: "20px" }}
             type="text"
@@ -80,7 +69,12 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
             prefix="{<SearchOutlined />}"
             onChange={searchMovieHandle}
           />
-          <select id="filter" name="category" onChange={searchFilterHandle}>
+          <select
+            style={{ height: "25px" }}
+            id="filter"
+            name="category"
+            onChange={searchFilterHandle}
+          >
             <option value="">Filter</option>
             <option value="action">Action</option>
             <option value="romance">Romance</option>
@@ -107,10 +101,6 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
         </nav>
       </header>
       {children}
-      {/* <footer className={style.footer}>
-        <hr />
-        <span>I'm here to stay (Footer)</span>
-      </footer> */}
     </div>
   );
 };

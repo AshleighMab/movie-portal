@@ -21,12 +21,8 @@ export const HomeMovies = () => {
   const [movieState, setMoviesState] = useState({} as IMovie);
   const [watchlist, setWatchlist] = useState<IMovie[]>([]);
 
-  
     getMovies();
   
-  
-
-
   const addToWatchlist = (movie: IMovie) => {
     addToList({ ...movie });
   };
@@ -63,14 +59,14 @@ export const HomeMovies = () => {
 
                   {WatchList.some((p) => p.id === movie.id) ? (
                     <Button danger onClick={() => removeFromList(movie)}>
-                      Remove from List
+                      Remove from Watchlist
                     </Button>
                   ) : (
                     <Button
                       className={styles.addbtn}
                       onClick={() => addToWatchlist(movie)}
                     >
-                      Add To List
+                      Add To Watchlist
                     </Button>
                   )}
                 </div>

@@ -4,7 +4,6 @@ import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router, { useRouter } from "next/router";
 import { IMovie, MovieContext } from "../../providers/movies/context";
-import MyCarousel from "../../components/Carousel";
 import Link from "next/link";
 
 export const HomeMovies = () => {
@@ -30,56 +29,48 @@ export const HomeMovies = () => {
 
   return (
     <Layout>
-      <div className={styles.container}>
+      <div className={styles.noList}>
         {WatchList?.length === 0 ? (
-          <div className={styles.cartEmpty}>
+          <div className={styles.noList}>
             <p>Your cart is currently empty</p>
 
             <Link href="/movies">
-              <button className={styles.startShopping}>See movies</button>
+              <button className={styles.startShopping}>
+                See available movies
+              </button>
             </Link>
           </div>
         ) : (
           <>
             <h2>Watch List</h2>
 
-            <div className={styles.cartItems}>
+            <div className={styles.container}>
               {WatchList?.map((movie) => (
-                <div key={movie.id} className={styles.cartItem}>
-                  <div className={styles.cartProduct}>
-                
-                    <div
-                      title={movie.title}
-                      key={movie.id}
-                      className={styles.homecard}
-                    >
-                      <h3 className={styles.title}>{movie.title}</h3>
-                      <div
-                        className={styles.pic}
-                        onClick={() => handleMovieClick(movie)}
-                      >
-                        <img
-                          src={movie.image}
-                          alt=""
-                          className={styles.image}
-                        />
-                      </div>
-                      <div className={styles.cardinfo}>
-                        <h5>{movie.duration}</h5>
-                      </div>
-                    </div>
+                <div
+                  title={movie.title}
+                  key={movie.id}
+                  className={styles.homecard}
+                >
+                  <h3 className={styles.title}>{movie.title}</h3>
+                  <div
+                    className={styles.pic}
+                    onClick={() => handleMovieClick(movie)}
+                  >
+                    <img src={movie.image} alt="" className={styles.image} />
+                  </div>
+                  <div className={styles.cardinfo}>
+                    <h5>{movie.duration}</h5>
                   </div>
                 </div>
               ))}
 
-              <div className={styles.cartSummary}>
+              <div className={styles.container}>
                 <button
                   className={styles.clearBtn}
                   onClick={() => handleClear()}
                 >
-                  Clear Cart
+                  Clear List
                 </button>
-             
               </div>
             </div>
           </>
