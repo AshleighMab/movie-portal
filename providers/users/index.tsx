@@ -2,11 +2,30 @@ import React, { PropsWithChildren, useReducer, useContext, FC, useEffect, useSta
 import { UserReducer } from './reducer';
 import { IUser, INITIAL_STATE, UserContext, UserActionContext, ILogin } from './context';
 import { CreateUserRequestAction, LoginRequestAction } from './action';
-import { useGet } from "restful-react";
+import { useGet, useMutate } from "restful-react";
+import { message } from 'antd';
 
 
 const UserProvider = ({ children }) => {
     const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE);
+
+    // const { mutate: createUserHttp } = useMutate({
+    //     path: "services/app/Person/Create",
+    //     verb: "POST",
+    //   });
+
+    //   const createUser = (payload: IUser) => {
+    //     createUserHttp(payload)
+    //       .then(res => {
+    //             dispatch(CreateUserRequestAction(res.request))
+    //         window.location.href='/'                     
+    //       })
+    //       .catch(({ message: Error }) => {
+    //         message.error(Error, 2);
+    //       });
+    //   };
+
+    //   https://localhost:44311/api/services/app/Person/Create
 
     const createUser = async (payload: IUser) => {
         await fetch('https://localhost:44311/api/services/app/Person/Create', {
@@ -31,7 +50,7 @@ const UserProvider = ({ children }) => {
 
     
 const { refetch: getPersonById, error: personByIdError, loading: isLoadingPerson, data: person } = useGet({
-    path: 'Person/Get'
+    path: 'services/app/Person/Get'
 })
 
 useEffect(() => {
@@ -51,30 +70,28 @@ const getUserInfo = (id: number) => {
     })
 }
 
-    const login = async (payload: ILogin) => {
-        await fetch('https://localhost:44311/api/TokenAuth/Authenticate', {
 
-            method: 'POST',
-            cache: "no-cache",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(payload),
-        }).then(res => {
-            res.json().then(data => {
-                localStorage.setItem('token', data.result.accessToken);
-                getUserInfo(data.result.userId)
-                dispatch(LoginRequestAction(data.request))
-                if (res.status ==  200) {
-                    console.log(res.status)
-                     window.location.href='/home'
-                }
-            })
-        })        
-    }
+  
+const { mutate: loginUserHttp } = useMutate({
+    path: "/TokenAuth/Authenticate",
+    verb: "POST",
+  });
 
+  const login = (payload: ILogin) => {
+    loginUserHttp(payload)
+      .then((res) => {
+        localStorage.setItem('token', res.result.accessToken);
+        getUserInfo(res.result.userId)
+        dispatch(LoginRequestAction(res.request));  
+        window.location.href='/home'
+                    
+      })
+      .catch(({ message: Error }) => {
+        message.error(Error, 2);
+      });
+  };
 
-    
+ 
 
     return (
         <UserContext.Provider value={state}>

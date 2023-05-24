@@ -1,9 +1,9 @@
-import React, { useState, useContext } from "react";
+import React, {  useContext } from "react";
 import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router, { useRouter } from "next/router";
-import { IMovie, MovieContext } from "../../providers/movies/context";
+import { MovieContext } from "../../providers/movies/context";
 import Link from "next/link";
 
 export const HomeMovies = () => {
@@ -16,8 +16,7 @@ export const HomeMovies = () => {
     clearList();
   };
 
-  const { getMovies, MoviesGotten, searchMovie, isDefault } = useMovies();
-  const [movieState, setMoviesState] = useState({} as IMovie);
+  const { MoviesGotten } = useMovies();
 
   console.log("watchlist", WatchList);
 
@@ -32,7 +31,7 @@ export const HomeMovies = () => {
       <div className={styles.noList}>
         {WatchList?.length === 0 ? (
           <div className={styles.noList}>
-            <p>Your cart is currently empty</p>
+            <p>Your watchlist is currently empty</p>
 
             <Link href="/movies">
               <button className={styles.startShopping}>

@@ -69,31 +69,7 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
               <BadgeIcon />
             </>
           </a>
-
-          {/* <input
-            style={{ marginRight: "40px", fontWeight: "bold", height: "20px" }}
-            type="text"
-            id="search"
-            placeholder="    Search for movies"
-            name="search"
-            prefix="{<SearchOutlined />}"
-            onChange={searchMovieHandle}
-          />
-          <select
-            style={{ height: "25px" }}
-            id="filter"
-            name="category"
-            onChange={searchFilterHandle}
-          >
-            <option value="">Filter</option>
-            <option value="action">Action</option>
-            <option value="romance">Romance</option>
-            <option value="comedy">Comedy</option>
-            <option value="drama">Drama</option>
-            <option value="documentary">Documentary</option>
-            <option value="musical">Musical</option>
-            <option value="thriller">Thriller</option>
-          </select> */}
+          
           <Space
             style={{ marginRight: "20px", marginLeft: "20px" }}
             direction="vertical"

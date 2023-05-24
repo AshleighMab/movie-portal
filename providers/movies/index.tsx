@@ -43,7 +43,7 @@ const MovieProvider = ({ children }) => {
   const getMovies = async () => {
     // dispatch(setIsDefaultRequestAction(true));
     const { data: IMovie } = await useGet({
-      path: "Movie/GetAll",
+      path: "services/app/Movie/GetAll",
     });
 
     if (IMovie && !isDispatched) {
@@ -55,7 +55,7 @@ const MovieProvider = ({ children }) => {
 
   const {mutate: rateHttp} = useMutate({
     verb: 'POST',
-    path: `Movie/AddRating`,
+    path: `services/app/Movie/AddRating`,
   });
 
 const rateMovie = async (payload: IMovie) => {
@@ -92,27 +92,7 @@ const rateMovie = async (payload: IMovie) => {
           dispatch(clearListRequestAction())
       }
     
-  // const {refetch:searchForMovie,error:searchError,loading:isSearchingMovie,data:SearchMovie}=useGet({path:'Movie/Search'})
 
-  // useEffect(()=>{
-  //     console.log("Searchresult::",SearchMovie)
-  //       dispatch(SearchMovieRequestAction(SearchMovie));        
-      
-  // },[SearchMovie,isSearchingMovie,searchError])
-
-  // const searchMovie =  (searchTerm: string) => {
-  //   searchForMovie({queryParams:{searchTerm}})    
-  // };
-
-
-  // const searchMovie = async (searchItem: string) => {
-  //   const url = `${localhost}/api/services/app/Movie/Search?searchTerm=${searchItem}`;
-  //   const result = await callApi(url, 'GET');
-  //   if (result) {
-  //     dispatch(SearchMovieRequestAction(result));
-  //     console.log("Searched:", result);
-  //   }
-  // };
 
   return (
     <MovieContext.Provider value={state}>

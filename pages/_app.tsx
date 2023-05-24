@@ -9,7 +9,7 @@ import { UserProvider } from "../providers/users";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <RestfulProvider base="https://localhost:44311/api/services/app/">    
+      <RestfulProvider base="https://localhost:44311/api/">    
         <UserProvider>        
         <MovieProvider>
           <Component {...pageProps} />

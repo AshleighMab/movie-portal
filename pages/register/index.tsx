@@ -7,11 +7,8 @@ import Layout from '../../components/Layout';
 import { Avatar, Space } from 'antd';
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
-type Props = {
-    onFormSwitch: (formType: string) => void;
-};
 
-const SignUp = ({ onFormSwitch }: Props) => {
+const SignUp = () => {
     const [authenticated, setAuthenticated] = useState(false);
     const [userName, setUserName] = useState('');
     const [name, setName] = useState('');
