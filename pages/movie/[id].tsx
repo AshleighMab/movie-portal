@@ -16,7 +16,7 @@ const Movie: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const [rate, setRating] = useState(0);
-  
+  const [rated, setRated] = useState(false);
 
   const foundMovie = MoviesGotten.find((movie) => movie.id === id);
 
@@ -26,29 +26,29 @@ const Movie: React.FC = () => {
     router.push(`/playmovie/${movieid}`);
   };
 
-  const handleNewRating = (newRating) =>{
-   setRating(newRating);
-   
-    const x : IMovie= {
-        id: foundMovie.id,
-        title: '',
-        duration: '',
-        category: '',
-        starring: '',
-        description: '',
-        image: '',
-        link: '',
-        trailer:" ",
-        rating: newRating,
-    
+  const handleNewRating = (newRating) => {
+    if (rated) {
+      return;
     }
+    setRating(newRating);
+    setRated(true);
+
+    const x: IMovie = {
+      id: foundMovie.id,
+      title: "",
+      duration: "",
+      category: "",
+      starring: "",
+      description: "",
+      image: "",
+      link: "",
+      trailer: " ",
+      rating: newRating,
+    };
     rateMovie(x);
-    console.log(`${foundMovie.title} rated:::`, newRating)
-  
-}
+    console.log(`${foundMovie.title} rated:::`, newRating);
+  };
 
-
-  
   const extractYouTubeVideoId = (url) => {
     if (url) {
       const trailerId = url.replace("https://youtu.be/", "");
@@ -110,10 +110,17 @@ const Movie: React.FC = () => {
                   paddingRight: "20px",
                   marginTop: "20px",
                   paddingLeft: "20px",
+                  color: rated ? "white" : "inherit", 
                 }}
                 onClick={() => handleNewRating(1)}
               />
-              <DislikeOutlined style={{ paddingRight: "20px" }} />
+              <DislikeOutlined
+                style={{
+                  paddingRight: "20px",
+                  color: rated ? "inherit" : "white", 
+                }}
+             
+              />
             </div>
           </div>
 

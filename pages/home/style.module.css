@@ -1,27 +1,33 @@
 .maincontainer{
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
 
-  background-color: black;
-  color: white;  
+  background-color: rgb(54, 50, 50);
+  color: white; 
 }
 .container {
   display: grid;
-  grid-template-columns: auto auto auto auto auto ;
-  column-gap: 1vw;
-  width: 100%;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 0 30px;
   overflow: hidden;
   background-color: rgb(54, 50, 50);
   }
   
   .homecard {
-    background-color:rgb(97, 93, 93);
+    background-color: rgb(97, 93, 93);
     border-radius: 10px;
     margin-top: 50px;
     margin-left: 1vw;
-    color:white;
+    color: white;
     margin-right: 10px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
   }
   .movieList {
     display: flex;
@@ -94,7 +100,6 @@
   }
 
   .image {
-    margin-left: 40px;
     height: 200px;
     width: 150px;
     }
@@ -104,3 +109,30 @@
     height: 400px;
     width: 400px;
   }
+
+  .addBtnContainer {
+    position: relative;
+  }
+  
+  .addButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .addBtnContainer:hover .addButton {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  

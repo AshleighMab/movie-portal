@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react';
 import style from '../../pages/register/style.module.css';
 import { useUsers } from '../../providers/users';
 import { IUser } from '../../providers/users/context';
-import Layout from '../../components/Layout'
+import Layout from '../../components/Layout';
+import { Avatar, Space } from 'antd';
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 type Props = {
     onFormSwitch: (formType: string) => void;
@@ -49,6 +51,13 @@ const SignUp = ({ onFormSwitch }: Props) => {
                          <div className={style.container}>
 
                     <Form className={style.form} layout="vertical" onFinish={onFinish}>
+                    <Space direction="vertical" size={16}>
+    <Space wrap size={16}>
+      <Avatar style={{marginLeft:"180px", marginTop:"-100px"}}size={100} icon={<UserOutlined />} />
+     
+    </Space>
+  
+  </Space>
                         <Form.Item name="userName"className={style.label} >
                             <Input value={userName} placeholder="Username"onChange={e => setUserName(e.target.value)} />
                         </Form.Item>
