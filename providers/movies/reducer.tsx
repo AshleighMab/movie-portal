@@ -43,24 +43,32 @@ export function MovieReducer(
       );
       return { ...incomingState, MoviesGotten: [...filtered] };
 
+
     case MovieActionEnum.addToListRequest:
-      const newItem = { ...payload.WatchListMovie, quantity: 1 };
       return {
         ...incomingState,
-        WatchList: [...(incomingState.WatchList as IMovie[]), newItem],
+        ...payload
       };
+
+
     case MovieActionEnum.removeFromListRequest:
+
+    const movieToDelete = payload.MovieDeletedFromWatchList
+    const updatedMovie = incomingState.MoviesFromWatchList.filter(
+      (movie) => movie.id !== movieToDelete);
       return {
         ...incomingState,
-        WatchList: (incomingState.WatchList as IMovie[]).filter(
-          (item) => item.id !== action.payload.WatchListMovie.id
-        ),
+        MoviesFromWatchList: updatedMovie,
+    
       };
-    case MovieActionEnum.clearListRequest:
+
+    case MovieActionEnum.getAllFromListRequest:
       return {
         ...incomingState,
-        WatchList: [],
+        ...payload
       };
+
+
     default:
       return incomingState;
   }

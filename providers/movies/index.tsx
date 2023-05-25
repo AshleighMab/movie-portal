@@ -12,6 +12,7 @@ import {
   MovieContext,
   MovieActionContext,
   IMovie,
+  IMovieIdDto,
 } from "./context";
 import {
   GetMoviesRequestAction,
@@ -19,21 +20,16 @@ import {
   SearchMovieRequestAction,
   addToListRequestAction,
   removeFromListRequestAction,
-  clearListRequestAction,
+
   RateMovieRequestAction,
+  DeleteMovieRequestAction,
 } from "./action";
 import { message } from "antd";
 
 const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
   const [isDispatched, setIsDispatched] = useState(false);
-
-  // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
-
-  // const fetchMovie =  (movieId: string) => {
-  //   getMovieById({queryParams:{id:movieId}})
-  //    dispatch(FetchMovieRequestAction(IMovie?.result));
-  // };
+  const [watchlist, setWatchlist] = useState<IMovie[]>([]);
 
   const getMovies = async () => {
     const { data: IMovie } = await useGet({
@@ -57,6 +53,13 @@ const MovieProvider = ({ children }) => {
     rateHttp(payload);
   };
 
+   // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
+
+  // const fetchMovie =  (movieId: string) => {
+  //   getMovieById({queryParams:{id:movieId}})
+  //    dispatch(FetchMovieRequestAction(IMovie?.result));
+  // };
+
   const searchMovie = async (searchItem: string) => {
     await fetch(
       `https://localhost:44311/api/services/app/Movie/Search?searchTerm=${searchItem}`,
@@ -75,16 +78,78 @@ const MovieProvider = ({ children }) => {
     });
   };
 
-  const addToList = (movie: IMovie) => {
-    dispatch(addToListRequestAction(movie));
+//gettting all the movies from a watchlist
+  const {
+    refetch: getAllMovies,
+    error: allMoviesErrors,
+    loading: isLoadingWatchListMovies,
+    data: watchlistMovies,
+  } = useGet({
+    path: "services/app/WatchList/GetAllMoviesFromUserList",
+    lazy:true,
+  });
+
+  useEffect(() => {
+    if (!isLoadingWatchListMovies && watchlistMovies) {
+      console.log("person::", watchlistMovies);
+    } else if (allMoviesErrors) {
+      console.log("Error person::", allMoviesErrors);
+    }
+  }, [getAllMovies, allMoviesErrors, isLoadingWatchListMovies]);
+
+  const getAllFromList = () => {
+    getAllMovies();
   };
 
-  const removeFromList = (movie: IMovie) => {
-    dispatch(removeFromListRequestAction(movie));
+
+  //add a movie to the watchlist
+  const {
+    mutate: addMovietoList,
+    error: addMovieError,
+
+  } = useMutate({
+    verb:'POST',
+    path:'services/app/WatchList/AddMovieToPersonUsingToken',
+  })
+
+const addToList = (payload: IMovieIdDto) => {
+    console.log("watchlist create::", payload.id)
+    addMovietoList(payload).then(res=>{
+      if(res.success){
+        dispatch(addToListRequestAction(res.success));
+        message.success("Movie added to the watchlist")
+      }
+        else if(addMovieError){
+          message.error("Can't add it")
+        }
+      }
+   ) 
   };
 
-  const clearList = () => {
-    dispatch(clearListRequestAction());
+
+  const removeFromList = async (payload: string) => {
+    await fetch(
+      `https://localhost:44311/api/services/app/WatchList/DeleteMovieFromWatchlist?movieId=${payload}`,
+      {
+        method: "DELETE",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    ).then((res) => {
+      res.json().then((data) => {
+        if(data.success){
+
+          dispatch(DeleteMovieRequestAction(payload));
+          console.log("Something::", data);
+        }else if(!data.success)
+        {
+          message.error("Can't remove movie")
+        }
+       
+      });
+    });
   };
 
   return (
@@ -94,9 +159,8 @@ const MovieProvider = ({ children }) => {
           getMovies,
           searchMovie,
           addToList,
-          removeFromList,
-          clearList,
-          rateMovie,
+          getAllFromList,
+          rateMovie,removeFromList
         }}
       >
         {children}

@@ -8,11 +8,10 @@ import Link from "next/link";
 import { DeleteOutlined } from "@ant-design/icons";
 
 export const HomeMovies = () => {
-  const { WatchList } = useContext(MovieContext);
-  const { clearList } = useMovies();
   //const { currentUser } = useUser();
   const { push } = useRouter();
   const [watchlist, setWatchlist] = useState([]);
+  const {getAllFromList} = useMovies();
 
   const handleClear = () => {
     localStorage.removeItem("watchlist");
@@ -21,22 +20,31 @@ export const HomeMovies = () => {
   };
 
   useEffect(() => {
-    const savedWatchlist = localStorage.getItem("watchlist");
-    if (savedWatchlist) {
-      setWatchlist(JSON.parse(savedWatchlist));
-      console.log("my data::", watchlist);
-    }
-  }, []);
+    getAllFromList();
+  }, [])
+  
+
+  // useEffect(() => {
+  //   const savedWatchlist = localStorage.getItem("watchlist");
+  //   if (savedWatchlist) {
+  //     setWatchlist(JSON.parse(savedWatchlist));
+  //     console.log("my data::", watchlist);
+  //   }
+  // }, []);
 
   const { MoviesGotten } = useMovies();
 
-  console.log("watchlist", WatchList);
 
   const handleMovieClick = (movieid) => {
     router.push(`/movie/${movieid.id}`);
   };
 
   console.log("This is movies::", MoviesGotten);
+
+
+
+
+
 
   return (
     <Layout>

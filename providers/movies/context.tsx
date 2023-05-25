@@ -16,6 +16,9 @@ export interface IMovie {
     creationTime?:Date
 }
 
+export interface IMovieIdDto {
+id?:string;
+}
 export interface IMovieStateContext{
   readonly MovieCreated?: IMovie
   readonly MoviesGotten?: IMovie[]
@@ -25,15 +28,14 @@ export interface IMovieStateContext{
   readonly MovieSearched?: IMovie[]
   readonly isDefault?: boolean
   readonly ratedMovie?: IMovie
-  readonly WatchListMovie?: IMovie
-  readonly WatchList?: IMovie[]
+  readonly MovieAddedToWatchList?: boolean
+  readonly MoviesFromWatchList?: IMovie[]
+  readonly MovieDeletedFromWatchList?: string
  
 }
 
 export const INITIAL_STATE: IMovieStateContext = {
   MoviesGotten:[],
-  WatchListMovie:{},
-  WatchList:[],
 }
 
 export interface IMovieActionContext{
@@ -43,10 +45,11 @@ export interface IMovieActionContext{
     deleteMovie?: (payload:string) => void;
     searchMovie?: (payload:string) => void;
     fetchMovie?: (payload:string) => void;
-    addToList?: (payload:IMovie) => void;
-    removeFromList?: (payload:IMovie) => void;
-    clearList?: () => void;
     rateMovie?: (payload:IMovie) => void;
+    getAllFromList?:  () => void;
+    addToList?: (payload:IMovieIdDto) => void;
+    removeFromList?: (payload:string) => void;
+ 
 }
 
 const MovieContext = createContext<IMovieStateContext>({});

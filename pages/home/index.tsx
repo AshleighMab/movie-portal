@@ -3,32 +3,34 @@ import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
-import { IMovie } from "../../providers/movies/context";
+import { IMovie, IMovieIdDto } from "../../providers/movies/context";
 import MyCarousel from "../../components/Carousel";
 import { Button } from "antd";
 import { DeleteOutlined, HeartOutlined } from "@ant-design/icons";
 export const HomeMovies = () => {
   
-  const { getMovies, MoviesGotten, WatchList, removeFromList, addToList } =
+  const { getMovies, MoviesGotten, MoviesFromWatchList, removeFromList, addToList } =
     useMovies();
 
   const [movieState, setMoviesState] = useState({} as IMovie);
-  const [watchlist, setWatchlist] = useState<IMovie[]>([]);
+  const [watchlist, setWatchlist] = useState({} as IMovieIdDto);
 
   const topMovies = MoviesGotten.sort((a, b) => b.rating - a.rating);
 
   getMovies();
 
-  const addToWatchlist = (movie: IMovie) => {
-    addToList({ ...movie });
-    if (!watchlist.includes(movie)) {
-      setWatchlist((prevWatchlist) => {
-        const newWatchlist = [...prevWatchlist, movie];
-        localStorage.setItem("watchlist", JSON.stringify(newWatchlist));
-        return newWatchlist;
-      });
-    }
+  const addToWatchlist = (movie: IMovieIdDto) => {
+    addToList(movie);
+
+    // if (!watchlist.includes(movie)) {
+    //   setWatchlist((prevWatchlist) => {
+    //     const newWatchlist = [...prevWatchlist, movie];
+    //     localStorage.setItem("watchlist", JSON.stringify(newWatchlist));
+    //     return newWatchlist;
+    //   });
+    // }
   };
+
 
   console.log("MovieState::", movieState);
 
@@ -61,11 +63,11 @@ export const HomeMovies = () => {
                 <div className={styles.cardinfo}>
                   <h5>
                     {movie.duration}
-                    {WatchList.some((p) => p.id === movie.id) ? (
+                    {MoviesFromWatchList.some((p) => p.id === movie.id) ? (
                       <Button
                         className={styles.watchlist}
                         danger
-                        onClick={() => removeFromList(movie)}
+                        onClick={() => removeFromList(movie.id)}
                       >
                         <DeleteOutlined />
                       </Button>

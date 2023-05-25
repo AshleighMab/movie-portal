@@ -10,7 +10,7 @@ export enum MovieActionEnum{
     FetchMovieRequest = 'FETCH',
     addToListRequest= 'ADD_TO_LIST',
     removeFromListRequest= 'REMOVE_FROM_LIST',
-    clearListRequest= 'CLEAR_LIST',
+    getAllFromListRequest= 'GET_ALL_FROM_LIST',
     RateMovieRequest = 'RATE',
 }
 
@@ -20,7 +20,7 @@ export const UpdateMovieRequestAction = createAction<IMovieStateContext, IMovie>
 export const DeleteMovieRequestAction = createAction<IMovieStateContext, string>(MovieActionEnum.DeleteMovieRequest, (MovieDeletedId) => ({MovieDeletedId}));
 export const SearchMovieRequestAction = createAction<IMovieStateContext, IMovie[]>(MovieActionEnum.SearchMovieRequest, (MoviesGotten) => ({MoviesGotten}));
 export const FetchMovieRequestAction = createAction<IMovieStateContext, IMovie>(MovieActionEnum.FetchMovieRequest, (MovieFetched) => ({MovieFetched}));
-export const addToListRequestAction = createAction<IMovieStateContext,IMovie>(MovieActionEnum.addToListRequest,(WatchListMovie)=>({WatchListMovie}));
-export const removeFromListRequestAction = createAction<IMovieStateContext,IMovie>(MovieActionEnum.removeFromListRequest,(WatchListMovie)=>({WatchListMovie}));
-export const clearListRequestAction = createAction<IMovieStateContext>(MovieActionEnum.clearListRequest,()=>({WatchListMovie: {}}));
 export const RateMovieRequestAction = createAction<IMovieStateContext,IMovie>(MovieActionEnum.RateMovieRequest,(ratedMovie)=>({ratedMovie}));
+export const addToListRequestAction = createAction<IMovieStateContext,boolean>(MovieActionEnum.addToListRequest,(MovieAddedToWatchList)=>({MovieAddedToWatchList}));
+export const removeFromListRequestAction = createAction<IMovieStateContext,string>(MovieActionEnum.removeFromListRequest,(MovieDeletedFromWatchList)=>({MovieDeletedFromWatchList}));
+export const getAllFromListRequestAction = createAction<IMovieStateContext,IMovie[]>(MovieActionEnum.getAllFromListRequest,(MoviesFromWatchList)=>({MoviesFromWatchList}));
