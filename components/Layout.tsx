@@ -1,12 +1,8 @@
 import React, { ChangeEvent, ReactNode } from "react";
 import Head from "next/head";
 import style from "./Layout.module.css";
-import { useMovies } from "../providers/movies";
 import { UserOutlined } from "@ant-design/icons";
 import { Avatar, Space } from "antd";
-import { useUsers } from "../providers/users";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import BadgeIcon from "./BadgeIcon";
 
@@ -16,22 +12,8 @@ type Props = {
 };
 
 const Layout = ({ children, title = "Movie Portal" }: Props) => {
-  const { getMovies, searchMovie } = useMovies();
-  const { getUserInfo } = useUsers();
-  const router = useRouter();
-  // const searchMovieHandle = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const search = event.target.value;
-  //   if (search) {
-  //     searchMovie(search);
-  //   }
-  // };
 
-  // const searchFilterHandle = (event: ChangeEvent<HTMLSelectElement>) => {
-  //   const search = event.target.value;
-  //   if (search) {
-  //     searchMovie(search);
-  //   }
-  // };
+  const router = useRouter();
 
   const handleLogout = () => {
     localStorage.removeItem("token");

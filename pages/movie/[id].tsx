@@ -4,7 +4,8 @@ import style from "./style.module.css";
 import Layout from "../../components/Layout";
 import {
   PlayCircleOutlined,
-  LikeOutlined,DislikeOutlined
+  LikeOutlined,
+  DislikeOutlined,
 } from "@ant-design/icons";
 import { useState } from "react";
 import { IMovie } from "../../providers/movies/context";
@@ -50,13 +51,12 @@ const Movie: React.FC = () => {
     rateMovie(x);
     console.log(`${foundMovie.title} rated:::`, newRating);
     notification.success({
-      message: 'Success',
+      message: "Success",
       description: `You have rated "${foundMovie.title}" ${
-        newRating === 1 ? 'thumbs up' : 'thumbs down'
+        newRating === 1 ? "thumbs up" : "thumbs down"
       }.`,
     });
-    
-    
+
     if (newRating === 1) {
       setThumbsUpRated(true);
     } else if (newRating === -1) {

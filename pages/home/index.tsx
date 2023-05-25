@@ -6,18 +6,11 @@ import router from "next/router";
 import { IMovie } from "../../providers/movies/context";
 import MyCarousel from "../../components/Carousel";
 import { Button } from "antd";
-import { StarOutlined, DeleteOutlined, HeartOutlined } from "@ant-design/icons";
+import { DeleteOutlined, HeartOutlined } from "@ant-design/icons";
 export const HomeMovies = () => {
-  const {
-    getMovies,
-    MoviesGotten,
-    fetchMovie,
-    searchMovie,
-    isDefault,
-    WatchList,
-    removeFromList,
-    addToList,
-  } = useMovies();
+  
+  const { getMovies, MoviesGotten, WatchList, removeFromList, addToList } =
+    useMovies();
 
   const [movieState, setMoviesState] = useState({} as IMovie);
   const [watchlist, setWatchlist] = useState<IMovie[]>([]);
@@ -28,14 +21,14 @@ export const HomeMovies = () => {
 
   const addToWatchlist = (movie: IMovie) => {
     addToList({ ...movie });
-      if (!watchlist.includes(movie)) {
-        setWatchlist((prevWatchlist) => {
-          const newWatchlist = [...prevWatchlist, movie];
-          localStorage.setItem("watchlist", JSON.stringify(newWatchlist));      
-          return newWatchlist;
-        });
-
-  }};
+    if (!watchlist.includes(movie)) {
+      setWatchlist((prevWatchlist) => {
+        const newWatchlist = [...prevWatchlist, movie];
+        localStorage.setItem("watchlist", JSON.stringify(newWatchlist));
+        return newWatchlist;
+      });
+    }
+  };
 
   console.log("MovieState::", movieState);
 
@@ -77,8 +70,11 @@ export const HomeMovies = () => {
                         <DeleteOutlined />
                       </Button>
                     ) : (
-                      <HeartOutlined  style={{ fontSize: '25px' }} className={styles.watchlist}
-                        onClick={() => addToWatchlist(movie)} />
+                      <HeartOutlined
+                        style={{ fontSize: "25px" }}
+                        className={styles.watchlist}
+                        onClick={() => addToWatchlist(movie)}
+                      />
                     )}
                   </h5>
                 </div>

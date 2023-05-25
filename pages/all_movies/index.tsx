@@ -5,25 +5,23 @@ import styles from "./style.module.css";
 import router from "next/router";
 import { IMovie } from "../../providers/movies/context";
 import { Button } from "antd";
-import { StarOutlined, HeartOutlined , DeleteOutlined } from '@ant-design/icons';
-
+import { HeartOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export const HomeMovies = () => {
   const {
     getMovies,
     MoviesGotten,
-    fetchMovie,
+
     searchMovie,
-    isDefault,
+
     WatchList,
     removeFromList,
     addToList,
   } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
-  const [watchlist, setWatchlist] = useState<IMovie[]>([]);
 
-    getMovies();
-  
+  getMovies();
+
   const addToWatchlist = (movie: IMovie) => {
     addToList({ ...movie });
   };
@@ -46,13 +44,13 @@ export const HomeMovies = () => {
       searchMovie(search);
     }
   };
-  console.log("This is my WL",WatchList)
+  console.log("This is my WL", WatchList);
   return (
     <Layout>
       <div className={styles.maincontainer}>
-<div className={styles.filters}>
-      <input
-              className={`${styles.input} ${styles.search}`}
+        <div className={styles.filters}>
+          <input
+            className={`${styles.input} ${styles.search}`}
             type="text"
             id="search"
             placeholder="Search for movies"
@@ -75,9 +73,8 @@ export const HomeMovies = () => {
             <option value="musical">Musical</option>
             <option value="thriller">Thriller</option>
           </select>
-          </div>
+        </div>
         <div className={styles.container}>
-            
           {MoviesGotten?.map((movie) => (
             <>
               <div
@@ -93,7 +90,7 @@ export const HomeMovies = () => {
                   <img src={movie.image} alt="" className={styles.image} />
                 </div>
                 <div className={styles.cardinfo}>
-                <h5>
+                  <h5>
                     {movie.duration}
                     {WatchList.some((p) => p.id === movie.id) ? (
                       <Button
@@ -104,10 +101,11 @@ export const HomeMovies = () => {
                         <DeleteOutlined />
                       </Button>
                     ) : (
-                   
-                        <HeartOutlined  style={{ fontSize: '25px' }} className={styles.watchlist}
-                        onClick={() => addToWatchlist(movie)} />
-                    
+                      <HeartOutlined
+                        style={{ fontSize: "25px" }}
+                        className={styles.watchlist}
+                        onClick={() => addToWatchlist(movie)}
+                      />
                     )}
                   </h5>
                 </div>
@@ -115,11 +113,9 @@ export const HomeMovies = () => {
             </>
           ))}
         </div>
-
       </div>
     </Layout>
   );
-
 };
 
 export default HomeMovies;

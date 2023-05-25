@@ -23,11 +23,8 @@ export function MovieReducer(
     case MovieActionEnum.FetchMovieRequest:
       return { ...incomingState, ...payload };
 
-      case MovieActionEnum.RateMovieRequest:
-        return { ...incomingState, ...payload };
-
-      // case MovieActionEnum.setIsDefaultRequestAction:
-      //   return { ...incomingState, ...payload };
+    case MovieActionEnum.RateMovieRequest:
+      return { ...incomingState, ...payload };
 
     case MovieActionEnum.UpdateMovieRequest:
       const { MovieUpdated } = payload;
@@ -46,24 +43,24 @@ export function MovieReducer(
       );
       return { ...incomingState, MoviesGotten: [...filtered] };
 
-
-      case MovieActionEnum.addToListRequest:
-
-      const newItem = { ...payload.WatchListMovie, quantity: 1 }
+    case MovieActionEnum.addToListRequest:
+      const newItem = { ...payload.WatchListMovie, quantity: 1 };
       return {
-          ...incomingState,
-          WatchList: [...(incomingState.WatchList as IMovie[]), newItem]
-      }
-  case MovieActionEnum.removeFromListRequest:
+        ...incomingState,
+        WatchList: [...(incomingState.WatchList as IMovie[]), newItem],
+      };
+    case MovieActionEnum.removeFromListRequest:
       return {
-          ...incomingState,
-          WatchList: (incomingState.WatchList as IMovie[]).filter((item) => item.id !== action.payload.WatchListMovie.id),
-      }
-  case MovieActionEnum.clearListRequest:
+        ...incomingState,
+        WatchList: (incomingState.WatchList as IMovie[]).filter(
+          (item) => item.id !== action.payload.WatchListMovie.id
+        ),
+      };
+    case MovieActionEnum.clearListRequest:
       return {
-          ...incomingState,
-          WatchList: [],
-      }
+        ...incomingState,
+        WatchList: [],
+      };
     default:
       return incomingState;
   }

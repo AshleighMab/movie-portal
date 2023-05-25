@@ -20,29 +20,22 @@ import {
   addToListRequestAction,
   removeFromListRequestAction,
   clearListRequestAction,
-  RateMovieRequestAction
-
-  //  setIsDefaultRequestAction,
-
+  RateMovieRequestAction,
 } from "./action";
 import { message } from "antd";
 
 const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
   const [isDispatched, setIsDispatched] = useState(false);
-  
 
   // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
 
-
   // const fetchMovie =  (movieId: string) => {
-  //   getMovieById({queryParams:{id:movieId}}) 
-  //    dispatch(FetchMovieRequestAction(IMovie?.result));           
+  //   getMovieById({queryParams:{id:movieId}})
+  //    dispatch(FetchMovieRequestAction(IMovie?.result));
   // };
 
-
   const getMovies = async () => {
-    // dispatch(setIsDefaultRequestAction(true));
     const { data: IMovie } = await useGet({
       path: "services/app/Movie/GetAll",
     });
@@ -54,50 +47,58 @@ const MovieProvider = ({ children }) => {
     }
   };
 
-  const {mutate: rateHttp} = useMutate({
-    verb: 'POST',
+  const { mutate: rateHttp } = useMutate({
+    verb: "POST",
     path: `services/app/Movie/AddRating`,
   });
 
-const rateMovie = async (payload: IMovie) => {
+  const rateMovie = async (payload: IMovie) => {
     dispatch(RateMovieRequestAction(payload));
-    rateHttp(payload)
+    rateHttp(payload);
   };
-  
-      const searchMovie = async (searchItem: string) => {
-        //  dispatch(setIsDefaultRequestAction(false));
-       await fetch(`https://localhost:44311/api/services/app/Movie/Search?searchTerm=${searchItem}`, {
-                method: 'GET',
-                cache: "no-cache",
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }).then(res => {
-                res.json().then(data => {
-                    dispatch(SearchMovieRequestAction(data.result));
-                    console.log("Something::", data)
-                })
-            })
-        };
 
-        const addToList = (movie: IMovie) => {
-      
-          dispatch(addToListRequestAction(movie))          
-      };
-  
-      const removeFromList = (movie: IMovie) => {
-          dispatch(removeFromListRequestAction(movie))        
+  const searchMovie = async (searchItem: string) => {
+    await fetch(
+      `https://localhost:44311/api/services/app/Movie/Search?searchTerm=${searchItem}`,
+      {
+        method: "GET",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
-  
-      const clearList =()=>{
-          dispatch(clearListRequestAction())
-      }
-    
+    ).then((res) => {
+      res.json().then((data) => {
+        dispatch(SearchMovieRequestAction(data.result));
+        console.log("Something::", data);
+      });
+    });
+  };
 
+  const addToList = (movie: IMovie) => {
+    dispatch(addToListRequestAction(movie));
+  };
+
+  const removeFromList = (movie: IMovie) => {
+    dispatch(removeFromListRequestAction(movie));
+  };
+
+  const clearList = () => {
+    dispatch(clearListRequestAction());
+  };
 
   return (
     <MovieContext.Provider value={state}>
-      <MovieActionContext.Provider value={{ getMovies, searchMovie, addToList, removeFromList, clearList, rateMovie}}>
+      <MovieActionContext.Provider
+        value={{
+          getMovies,
+          searchMovie,
+          addToList,
+          removeFromList,
+          clearList,
+          rateMovie,
+        }}
+      >
         {children}
       </MovieActionContext.Provider>
     </MovieContext.Provider>

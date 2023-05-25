@@ -34,7 +34,6 @@ export const INITIAL_STATE: IMovieStateContext = {
   MoviesGotten:[],
   WatchListMovie:{},
   WatchList:[],
-  // isDefault:true
 }
 
 export interface IMovieActionContext{
