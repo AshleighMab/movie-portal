@@ -13,6 +13,7 @@ export interface IMovie {
     trailer?:string
     rating?:number
     totalpeople?:number
+    creationTime?:Date
 }
 
 export interface IMovieStateContext{

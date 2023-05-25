@@ -6,7 +6,7 @@ import router from "next/router";
 import { IMovie } from "../../providers/movies/context";
 import MyCarousel from "../../components/Carousel";
 import { Button } from "antd";
-
+import { StarOutlined, DeleteOutlined, HeartOutlined } from "@ant-design/icons";
 export const HomeMovies = () => {
   const {
     getMovies,
@@ -18,14 +18,24 @@ export const HomeMovies = () => {
     removeFromList,
     addToList,
   } = useMovies();
+
   const [movieState, setMoviesState] = useState({} as IMovie);
   const [watchlist, setWatchlist] = useState<IMovie[]>([]);
 
-    getMovies();
-  
+  const topMovies = MoviesGotten.sort((a, b) => b.rating - a.rating);
+
+  getMovies();
+
   const addToWatchlist = (movie: IMovie) => {
     addToList({ ...movie });
-  };
+      if (!watchlist.includes(movie)) {
+        setWatchlist((prevWatchlist) => {
+          const newWatchlist = [...prevWatchlist, movie];
+          localStorage.setItem("watchlist", JSON.stringify(newWatchlist));      
+          return newWatchlist;
+        });
+
+  }};
 
   console.log("MovieState::", movieState);
 
@@ -33,21 +43,22 @@ export const HomeMovies = () => {
     router.push(`/movie/${movieid.id}`);
   };
 
-  console.log("This is my WL",WatchList)
   return (
     <Layout>
       <MyCarousel />
 
       <div>
+        <h1 className={styles.heading}>TOP RATED MOVIES</h1>
         <div className={styles.container}>
-          {MoviesGotten?.map((movie) => (
+          {topMovies.slice(0, 5).map((movie) => (
             <>
               <div
                 title={movie.title}
                 key={movie.id}
                 className={styles.homecard}
               >
-                <h3 className={styles.title}>{movie.title}</h3>
+                <h3 className={styles.title}>{movie.title} </h3>
+
                 <div
                   className={styles.pic}
                   onClick={() => handleMovieClick(movie)}
@@ -55,62 +66,29 @@ export const HomeMovies = () => {
                   <img src={movie.image} alt="" className={styles.image} />
                 </div>
                 <div className={styles.cardinfo}>
-                  <h5>{movie.duration}</h5>
-
-                  {WatchList.some((p) => p.id === movie.id) ? (
-                    <Button danger onClick={() => removeFromList(movie)}>
-                      Remove from Watchlist
-                    </Button>
-                  ) : (
-                    <Button
-                      className={styles.addbtn}
-                      onClick={() => addToWatchlist(movie)}
-                    >
-                      Add To Watchlist
-                    </Button>
-                  )}
+                  <h5>
+                    {movie.duration}
+                    {WatchList.some((p) => p.id === movie.id) ? (
+                      <Button
+                        className={styles.watchlist}
+                        danger
+                        onClick={() => removeFromList(movie)}
+                      >
+                        <DeleteOutlined />
+                      </Button>
+                    ) : (
+                      <HeartOutlined  style={{ fontSize: '25px' }} className={styles.watchlist}
+                        onClick={() => addToWatchlist(movie)} />
+                    )}
+                  </h5>
                 </div>
               </div>
             </>
           ))}
         </div>
-
-        {/* <h1 className={styles.headingcontainer}>Recommended</h1>
-        <div className={styles.container}>
-          {MoviesGotten?.map(
-            (movie, index) =>
-              index < 5 && (
-                <>
-                  <div
-                    title={movie.title}
-                    key={movie.id}
-                    className={styles.homecard}
-                  >
-                    <h3 className={styles.title}>{movie.title}</h3>
-                    <div
-                      className={styles.pic}
-                      onClick={() => handleMovieClick(movie)}
-                    >
-                      <img
-                        src={movie.image}
-                        alt=""
-                        className={styles.image}
-                        width={110}
-                        height={150}
-                      />
-                    </div>
-                    <div className={styles.cardinfo}>
-                      <h5>{movie.duration}</h5>
-                    </div>
-                  </div>
-                </>
-              )
-          )} */}
-        {/* </div> */}
       </div>
     </Layout>
   );
-
 };
 
 export default HomeMovies;

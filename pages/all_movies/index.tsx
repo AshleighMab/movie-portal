@@ -4,6 +4,8 @@ import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
 import { IMovie } from "../../providers/movies/context";
+import { Button } from "antd";
+import { StarOutlined, HeartOutlined , DeleteOutlined } from '@ant-design/icons';
 
 
 export const HomeMovies = () => {
@@ -50,16 +52,16 @@ export const HomeMovies = () => {
       <div className={styles.maincontainer}>
 <div className={styles.filters}>
       <input
-            className={styles.search}
+              className={`${styles.input} ${styles.search}`}
             type="text"
             id="search"
-            placeholder="    Search for movies"
+            placeholder="Search for movies"
             name="search"
             prefix="{<SearchOutlined />}"
             onChange={searchMovieHandle}
           />
           <select
-            className={styles.filter}
+            className={`${styles.input} ${styles.filter}`}
             id="filter"
             name="category"
             onChange={searchFilterHandle}
@@ -91,58 +93,29 @@ export const HomeMovies = () => {
                   <img src={movie.image} alt="" className={styles.image} />
                 </div>
                 <div className={styles.cardinfo}>
-                  <h5>{movie.duration}</h5>
-
-                  {/* {WatchList.some((p) => p.id === movie.id) ? (
-                    <Button danger onClick={() => removeFromList(movie)}>
-                      Remove from Watchlist
-                    </Button>
-                  ) : (
-                    <Button
-                      className={styles.addbtn}
-                      onClick={() => addToWatchlist(movie)}
-                    >
-                      Add To Watchlist
-                    </Button>
-                  )} */}
+                <h5>
+                    {movie.duration}
+                    {WatchList.some((p) => p.id === movie.id) ? (
+                      <Button
+                        className={styles.watchlist}
+                        danger
+                        onClick={() => removeFromList(movie)}
+                      >
+                        <DeleteOutlined />
+                      </Button>
+                    ) : (
+                   
+                        <HeartOutlined  style={{ fontSize: '25px' }} className={styles.watchlist}
+                        onClick={() => addToWatchlist(movie)} />
+                    
+                    )}
+                  </h5>
                 </div>
               </div>
             </>
           ))}
         </div>
 
-        {/* <h1 className={styles.headingcontainer}>Recommended</h1>
-        <div className={styles.container}>
-          {MoviesGotten?.map(
-            (movie, index) =>
-              index < 5 && (
-                <>
-                  <div
-                    title={movie.title}
-                    key={movie.id}
-                    className={styles.homecard}
-                  >
-                    <h3 className={styles.title}>{movie.title}</h3>
-                    <div
-                      className={styles.pic}
-                      onClick={() => handleMovieClick(movie)}
-                    >
-                      <img
-                        src={movie.image}
-                        alt=""
-                        className={styles.image}
-                        width={110}
-                        height={150}
-                      />
-                    </div>
-                    <div className={styles.cardinfo}>
-                      <h5>{movie.duration}</h5>
-                    </div>
-                  </div>
-                </>
-              )
-          )} */}
-        {/* </div> */}
       </div>
     </Layout>
   );

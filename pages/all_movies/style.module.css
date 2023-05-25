@@ -15,16 +15,33 @@
     background-color: rgb(54, 50, 50);
     }
     
-   
+    .watchlist{
+        /* background-color: rgb(54, 50, 50) ; */
+         margin-left: 10px;
+         color: white;
+           
+        }
+          .heading{
+            margin-left:40px;
+            margin-bottom:0%;
+            margin-top:50px;
+          }
+
     .filters{
         display: flex;
   justify-content: center;
   align-items: center;
 
     }
+
+    
     .filter{
         height: 45px ;
         width:155px;
+        color: grey;
+        background-color: rgb(42, 40, 40);
+        margin-Right: 40px;
+         font-Weight: bold;
     }
 
     .search{
@@ -32,6 +49,8 @@
          font-Weight: bold;
           height: 40px;
           width:150px;
+          color: white;
+          background-color:  rgb(42, 40, 40);
     }
 
     .homecard {

@@ -54,7 +54,11 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <header className={style.header}>
+       
         <nav className={style.nav}>
+        <a className={style.name} href="/home">
+            Leigh Films
+          </a>
           <a className={style.a} href="/home">
             Home
           </a>
@@ -69,22 +73,25 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
               <BadgeIcon />
             </>
           </a>
-          
+          | 
+          <a className={style.logout} href="/" onClick={handleLogout}>
+            <> 
+            Logout
+             
+            </>
+          </a>
+
           <Space
             style={{ marginRight: "20px", marginLeft: "20px" }}
             direction="vertical"
-            size={16}
+            size={14}
             onClick={handleProfile}
           >
-            <Space wrap size={16}>
+            <Space wrap size={14}>
               <Avatar size={50} icon={<UserOutlined />} />
             </Space>
           </Space>
-          {!isLoginPage && (
-            <button style={{ marginRight: "40px" }} onClick={handleLogout}>
-              <FontAwesomeIcon icon={faSignOutAlt} />
-            </button>
-          )}
+    
         </nav>
       </header>
       {children}

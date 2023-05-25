@@ -30,6 +30,7 @@ import { message } from "antd";
 const MovieProvider = ({ children }) => {
   const [state, dispatch] = useReducer(MovieReducer, INITIAL_STATE);
   const [isDispatched, setIsDispatched] = useState(false);
+  
 
   // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
 

@@ -1,20 +1,33 @@
-import React, {  useContext } from "react";
+import React, {  useContext, useEffect, useState} from "react";
 import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router, { useRouter } from "next/router";
-import { MovieContext } from "../../providers/movies/context";
+import { IMovie, MovieContext } from "../../providers/movies/context";
 import Link from "next/link";
+import { StarOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export const HomeMovies = () => {
   const { WatchList } = useContext(MovieContext);
   const { clearList } = useMovies();
   //const { currentUser } = useUser();
   const { push } = useRouter();
-
+  const [watchlist, setWatchlist] = useState([]);
+  
   const handleClear = () => {
-    clearList();
+    localStorage.removeItem('watchlist');
+    setWatchlist([]);
+    push('/home'); 
   };
+
+
+  useEffect(() => {
+    const savedWatchlist = localStorage.getItem("watchlist");
+    if (savedWatchlist) {
+      setWatchlist(JSON.parse(savedWatchlist)); 
+      console.log('my data::',watchlist )
+    }
+  }, []);
 
   const { MoviesGotten } = useMovies();
 
@@ -29,49 +42,48 @@ export const HomeMovies = () => {
   return (
     <Layout>
       <div className={styles.noList}>
-        {WatchList?.length === 0 ? (
-          <div className={styles.noList}>
+        {watchlist?.length === 0 ? (
+          <div className={styles.noMovies} >
             <p>Your watchlist is currently empty</p>
 
-            <Link href="/movies">
-              <button className={styles.startShopping}>
+           
+              <button >
+              <Link href="/home" className={styles.view}> </Link>
                 See available movies
               </button>
-            </Link>
+           
           </div>
         ) : (
           <>
-            <h2>Watch List</h2>
+            <h2 className={styles.heading} >Watch List  <DeleteOutlined    onClick={() => handleClear()} style={{ fontSize: '25px' , marginLeft:"40px", color:"red"}} /></h2>
 
             <div className={styles.container}>
-              {WatchList?.map((movie) => (
+              {watchlist?.map((movie) => (
                 <div
-                  title={movie.title}
-                  key={movie.id}
-                  className={styles.homecard}
+                title={movie.title}
+                key={movie.id}
+                className={styles.homecard}
+              >
+                <h3 className={styles.title}>{movie.title} </h3>
+
+                <div
+                  className={styles.pic}
+                  onClick={() => handleMovieClick(movie)}
                 >
-                  <h3 className={styles.title}>{movie.title}</h3>
-                  <div
-                    className={styles.pic}
-                    onClick={() => handleMovieClick(movie)}
-                  >
-                    <img src={movie.image} alt="" className={styles.image} />
-                  </div>
-                  <div className={styles.cardinfo}>
-                    <h5>{movie.duration}</h5>
-                  </div>
+                  <img src={movie.image} alt="" className={styles.image} />
                 </div>
+                <div className={styles.cardinfo}>
+                  <h5>
+                    {movie.duration}
+                  </h5>
+                </div>
+              </div>
               ))}
 
-              <div className={styles.container}>
-                <button
-                  className={styles.clearBtn}
-                  onClick={() => handleClear()}
-                >
-                  Clear List
-                </button>
-              </div>
+              
             </div>
+
+      
           </>
         )}
       </div>

@@ -4,11 +4,11 @@ import style from "./style.module.css";
 import Layout from "../../components/Layout";
 import {
   PlayCircleOutlined,
-  LikeOutlined,
-  DislikeOutlined,
+  LikeOutlined,DislikeOutlined
 } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { IMovie } from "../../providers/movies/context";
+import { notification } from "antd";
 
 const Movie: React.FC = () => {
   const { MovieFetched, MoviesGotten, rateMovie } = useMovies();
@@ -17,13 +17,15 @@ const Movie: React.FC = () => {
   const { id } = router.query;
   const [rate, setRating] = useState(0);
   const [rated, setRated] = useState(false);
+  const [thumbsUpRated, setThumbsUpRated] = useState(false);
+  const [thumbsDownRated, setThumbsDownRated] = useState(false);
 
   const foundMovie = MoviesGotten.find((movie) => movie.id === id);
 
   console.log("MyID::", id);
 
   const handleMovieClick = (movieid) => {
-    router.push(`/playmovie/${movieid}`);
+    router.push(`/play_movie/${movieid}`);
   };
 
   const handleNewRating = (newRating) => {
@@ -47,6 +49,19 @@ const Movie: React.FC = () => {
     };
     rateMovie(x);
     console.log(`${foundMovie.title} rated:::`, newRating);
+    notification.success({
+      message: 'Success',
+      description: `You have rated "${foundMovie.title}" ${
+        newRating === 1 ? 'thumbs up' : 'thumbs down'
+      }.`,
+    });
+    
+    
+    if (newRating === 1) {
+      setThumbsUpRated(true);
+    } else if (newRating === -1) {
+      setThumbsDownRated(true);
+    }
   };
 
   const extractYouTubeVideoId = (url) => {
@@ -110,16 +125,16 @@ const Movie: React.FC = () => {
                   paddingRight: "20px",
                   marginTop: "20px",
                   paddingLeft: "20px",
-                  color: rated ? "white" : "inherit", 
+                  color: thumbsUpRated ? "green" : "white",
                 }}
                 onClick={() => handleNewRating(1)}
               />
               <DislikeOutlined
                 style={{
                   paddingRight: "20px",
-                  color: rated ? "inherit" : "white", 
+                  color: thumbsDownRated ? "red" : "white",
                 }}
-             
+                onClick={() => handleNewRating(-1)}
               />
             </div>
           </div>

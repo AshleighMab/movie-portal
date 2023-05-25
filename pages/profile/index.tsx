@@ -20,16 +20,32 @@ const UserInf = () => {
   
   return (
     <Layout>
-    <div className={style.container}>
-    <div className={style.profileinfo}>
-      {/* <h1>MY PROFILE  </h1> */}
-      <h2>Full Name:{person ? person.name: null} {person ? person.surname: null}</h2>
-      <p>Gender: {person ? person.genderName: null}</p>
-      <p>Cellphone: {person ? person.phoneNumber: null}</p>
-      <p>Email: {person ? person.emailAddress: null}</p>
-      
+   <div className={style.body}>
+      <div className={style.container}>
+        <div className={style.profileinfo}>
+          <div className={style.profilepic}>
+            <i className="fas fa-user-circle fa-1x"></i>
+          </div>
+          <h1 className={style.heading}>
+            {/* <i className="fas fa-user icon"></i> */}
+           {person ? person.name : null} {person ? person.surname : null}
+          </h1>
+          
+          <p className={style.p}>
+            <i className="fas fa-phone icon"></i>
+            Cellphone: {person ? person.phoneNumber : null}
+          </p>
+          <p className={style.p}>
+            <i className="fas fa-envelope icon"></i>
+              Email: {person ? person.emailAddress : null}
+          </p>
+          <p className={style.p}>
+            <i className="fas fa-venus-mars icon"></i>
+            Gender: {person ? person.genderName : null}
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
   </Layout>
   );
 };

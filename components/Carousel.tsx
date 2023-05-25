@@ -18,11 +18,11 @@ const MyCarousel: React.FC = () => (
                   height={550}/></h3>
     </div>
     <div>
-      <h3 style={contentStyle}>  <img src="./Inside-Out-November-Movie-Night-Web-Banner.jpg"   width={"100%"}
+      <h3 style={contentStyle}>  <img src="./insideOut.jpg"   width={"100%"}
                   height={550}/></h3>
     </div>
     <div >
-      <h3 style={contentStyle}>  <img src="./wf.jpg"   width={"100%"}
+      <h3 style={contentStyle}>  <img src="./waf.jpg"   width={"100%"}
                   height={550}/></h3>
     
     </div>

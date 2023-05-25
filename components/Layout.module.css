@@ -9,7 +9,22 @@
     text-decoration: none;
    padding : 30px;
   }
-  
+
+  .name{
+    color: white;
+    text-decoration: none;
+   padding : 30px;
+   margin-right: 750px;
+   font-size: 30px;
+   margin-top: 60px;
+    align-items: center;
+  }
+  .logout{
+    color: white;
+    text-decoration: none;
+   padding : 30px;
+   padding-right: 10px;
+  }
   .a:hover {
     color: gray;
   }
