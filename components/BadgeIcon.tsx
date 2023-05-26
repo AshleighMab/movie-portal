@@ -5,7 +5,7 @@ import { MovieContext } from '../providers/movies/context';
 
 
 const BadgeIcon: React.FC = () => {
-const { WatchList}=useContext(MovieContext);
+const { MoviesFromWatchList} = useContext(MovieContext);
   const [count, setCount] = useState(0);
   const [show, setShow] = useState(true);
 
@@ -16,7 +16,7 @@ const { WatchList}=useContext(MovieContext);
 
   return (
     <>
-      <Badge count={WatchList.length} size={'small'} style={{marginBottom:'1vw'}}></Badge>
+      {/* <Badge count={MoviesFromWatchList.length} size={'small'} style={{marginBottom:'1vw'}}></Badge> */}
     </>
   );
 };

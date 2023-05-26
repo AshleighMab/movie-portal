@@ -15,13 +15,14 @@
   background-color: rgb(54, 50, 50);
   margin-top:0%;
 }
-  .noMovies{
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 80px;
-  }
-
+.noMovies {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ font-size:30px;
+  margin-top: 80px;
+}
 
 .watchlist{
 background-color: rgb(54, 50, 50) ;
@@ -158,4 +159,8 @@ background-color: rgb(54, 50, 50) ;
     color: #ffffff;
   }
 
-  
+  .watchlist{
+    margin-left: 20px;
+    color: white;
+      
+   }

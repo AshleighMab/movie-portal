@@ -3,27 +3,34 @@ import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
-import { IMovie } from "../../providers/movies/context";
+import { IMovie, IMovieIdDto } from "../../providers/movies/context";
 import { Button } from "antd";
 import { HeartOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export const HomeMovies = () => {
-  const {
-    getMovies,
-    MoviesGotten,
-
-    searchMovie,
-
-    WatchList,
-    removeFromList,
-    addToList,
+  const {getMovies,MoviesGotten,searchMovie, removeFromList,
+addToList,MoviesFromWatchList, getAllFromList
   } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
 
   getMovies();
 
+  useEffect(() => {
+    getAllFromList()  
+  }, [])
+
+  
+  if (!MoviesFromWatchList) {
+<></>
+  }
+  
   const addToWatchlist = (movie: IMovie) => {
-    addToList({ ...movie });
+    const x : IMovieIdDto={
+      movieId: movie.id
+    }
+    console.log('movieId::', x)
+    addToList(x);
+
   };
 
   console.log("MovieState::", movieState);
@@ -44,7 +51,7 @@ export const HomeMovies = () => {
       searchMovie(search);
     }
   };
-  console.log("This is my WL", WatchList);
+  // console.log("This is my WL", WatchList);
   return (
     <Layout>
       <div className={styles.maincontainer}>
@@ -92,11 +99,11 @@ export const HomeMovies = () => {
                 <div className={styles.cardinfo}>
                   <h5>
                     {movie.duration}
-                    {WatchList.some((p) => p.id === movie.id) ? (
+                    {MoviesFromWatchList.some((p) => p.id === movie.id) ? (
                       <Button
                         className={styles.watchlist}
                         danger
-                        onClick={() => removeFromList(movie)}
+                        onClick={() => removeFromList(movie.id)}
                       >
                         <DeleteOutlined />
                       </Button>

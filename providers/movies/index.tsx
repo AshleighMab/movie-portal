@@ -20,9 +20,9 @@ import {
   SearchMovieRequestAction,
   addToListRequestAction,
   removeFromListRequestAction,
-
   RateMovieRequestAction,
   DeleteMovieRequestAction,
+  getAllFromListRequestAction,
 } from "./action";
 import { message } from "antd";
 
@@ -31,17 +31,40 @@ const MovieProvider = ({ children }) => {
   const [isDispatched, setIsDispatched] = useState(false);
   const [watchlist, setWatchlist] = useState<IMovie[]>([]);
 
-  const getMovies = async () => {
-    const { data: IMovie } = await useGet({
-      path: "services/app/Movie/GetAll",
-    });
+  const {
+    refetch: getAllMoviesIndex,
+    error: allMoviesError,
+    loading: isLoadingMovies,
+    data: movies,
+  } = useGet({
+    path: "services/app/Movie/GetAll",
+    lazy: true,
+  });
 
-    if (IMovie && !isDispatched) {
-      console.log("index movies::", IMovie.result);
-      dispatch(GetMoviesRequestAction(IMovie.result));
-      setIsDispatched(true);
+  useEffect(() => {
+    if (!isLoadingMovies && movies) {
+      console.log("all movies::", movies.result);
+      dispatch(GetMoviesRequestAction(movies.result));
+    } else if (allMoviesError) {
+      console.log("Error all movies::", allMoviesError);
     }
+  }, [getAllMoviesIndex, allMoviesError, isLoadingMovies]);
+
+  const getMovies = () => {
+    getAllMoviesIndex();
   };
+
+  // const { refetch: getAllMovies, data: IMovie } = useGet({
+  //   path: "services/app/Movie/GetAll",
+  // });
+
+  // const getMovies = () => {
+  //   if (IMovie && !isDispatched) {
+  //     console.log("index movies::", IMovie.result);
+
+  //     setIsDispatched(true);
+  //   }
+  // };
 
   const { mutate: rateHttp } = useMutate({
     verb: "POST",
@@ -53,7 +76,7 @@ const MovieProvider = ({ children }) => {
     rateHttp(payload);
   };
 
-   // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
+  // const {refetch:getMovieById,error:movieByIDError,loading:isFetchingMovie,data:IMovie}=useGet({path:'/Movie/Get'})
 
   // const fetchMovie =  (movieId: string) => {
   //   getMovieById({queryParams:{id:movieId}})
@@ -78,7 +101,7 @@ const MovieProvider = ({ children }) => {
     });
   };
 
-//gettting all the movies from a watchlist
+  //gettting all the movies from a watchlist
   const {
     refetch: getAllMovies,
     error: allMoviesErrors,
@@ -86,12 +109,13 @@ const MovieProvider = ({ children }) => {
     data: watchlistMovies,
   } = useGet({
     path: "services/app/WatchList/GetAllMoviesFromUserList",
-    lazy:true,
+    lazy: true,
   });
 
   useEffect(() => {
     if (!isLoadingWatchListMovies && watchlistMovies) {
-      console.log("person::", watchlistMovies);
+      console.log("watchlistMovies::", watchlistMovies);
+      dispatch(getAllFromListRequestAction(watchlistMovies.result));
     } else if (allMoviesErrors) {
       console.log("Error person::", allMoviesErrors);
     }
@@ -101,31 +125,24 @@ const MovieProvider = ({ children }) => {
     getAllMovies();
   };
 
-
   //add a movie to the watchlist
-  const {
-    mutate: addMovietoList,
-    error: addMovieError,
+  const { mutate: addMovietoList, error: addMovieError } = useMutate({
+    verb: "POST",
+    path: "services/app/WatchList/AddMovieToPersonUsingToken",
+  });
 
-  } = useMutate({
-    verb:'POST',
-    path:'services/app/WatchList/AddMovieToPersonUsingToken',
-  })
-
-const addToList = (payload: IMovieIdDto) => {
-    console.log("watchlist create::", payload.id)
-    addMovietoList(payload).then(res=>{
-      if(res.success){
-        dispatch(addToListRequestAction(res.success));
-        message.success("Movie added to the watchlist")
+  const addToList = (payload: IMovieIdDto) => {
+    console.log("watchlist create::", payload);
+    addMovietoList(payload).then((res) => {
+      if (res.success) {
+        console.log("add to watchlist::", res);
+        dispatch(addToListRequestAction(payload.movieId));
+        message.success("Movie added to the watchlist");
+      } else if (addMovieError) {
+        message.error("Can't add to watchlist");
       }
-        else if(addMovieError){
-          message.error("Can't add it")
-        }
-      }
-   ) 
+    });
   };
-
 
   const removeFromList = async (payload: string) => {
     await fetch(
@@ -139,15 +156,14 @@ const addToList = (payload: IMovieIdDto) => {
       }
     ).then((res) => {
       res.json().then((data) => {
-        if(data.success){
-
-          dispatch(DeleteMovieRequestAction(payload));
+        if (data.success) {
+          console.log('DeleteMovieRequestAction', payload)
+          dispatch(removeFromListRequestAction(payload));
+          message.success("Movie deleted from watchlist");
           console.log("Something::", data);
-        }else if(!data.success)
-        {
-          message.error("Can't remove movie")
+        } else if (!data.success) {
+          message.error("Can't remove movie");
         }
-       
       });
     });
   };
@@ -160,7 +176,8 @@ const addToList = (payload: IMovieIdDto) => {
           searchMovie,
           addToList,
           getAllFromList,
-          rateMovie,removeFromList
+          rateMovie,
+          removeFromList,
         }}
       >
         {children}

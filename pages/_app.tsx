@@ -7,9 +7,22 @@ import { UserProvider } from "../providers/users";
 
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const token = () => {
+    if (typeof localStorage !== 'undefined') {
+        const token = localStorage.getItem('token');
+        return token;
+    }
+    return null;
+}
   return (
     <>
-      <RestfulProvider base="https://localhost:44311/api/">    
+      <RestfulProvider base="https://localhost:44311/api/"  
+      requestOptions={{
+        headers: {
+            authorization: `Bearer ${token()}`,
+        },
+    }}
+      >    
         <UserProvider>        
         <MovieProvider>
           <Component {...pageProps} />

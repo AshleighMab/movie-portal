@@ -3,60 +3,50 @@ import { useMovies } from "../../providers/movies";
 import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router, { useRouter } from "next/router";
-import { MovieContext } from "../../providers/movies/context";
+import { IMovie, MovieContext } from "../../providers/movies/context";
 import Link from "next/link";
 import { DeleteOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 
 export const HomeMovies = () => {
   //const { currentUser } = useUser();
   const { push } = useRouter();
   const [watchlist, setWatchlist] = useState([]);
-  const {getAllFromList} = useMovies();
+  const {getAllFromList, MoviesFromWatchList, removeFromList, MovieDeletedFromWatchList} = useMovies();
 
-  const handleClear = () => {
-    localStorage.removeItem("watchlist");
-    setWatchlist([]);
-    push("/home");
-  };
+  const [remove, setRemove] = useState('');
 
   useEffect(() => {
     getAllFromList();
-  }, [])
+  }, [MoviesFromWatchList])
+
+  const removeFromListClick =(movieid: string) => {
+
+    removeFromList(movieid);
   
+  }
 
-  // useEffect(() => {
-  //   const savedWatchlist = localStorage.getItem("watchlist");
-  //   if (savedWatchlist) {
-  //     setWatchlist(JSON.parse(savedWatchlist));
-  //     console.log("my data::", watchlist);
-  //   }
-  // }, []);
 
-  const { MoviesGotten } = useMovies();
+  const handleClear = (movie: IMovie) => {
+    push("/home");
+  };
 
 
   const handleMovieClick = (movieid) => {
     router.push(`/movie/${movieid.id}`);
   };
 
-  console.log("This is movies::", MoviesGotten);
-
-
-
-
-
-
   return (
     <Layout>
       <div className={styles.noList}>
-        {watchlist?.length === 0 ? (
+        {MoviesFromWatchList?.length === 0 ? (
           <div className={styles.noMovies}>
             <p>Your watchlist is currently empty</p>
 
             <button>
-              <Link href="/home" className={styles.view}>
+              <a href="/all_movies" className={styles.view}>
                 {" "}
-              </Link>
+              </a>
               See available movies
             </button>
           </div>
@@ -65,13 +55,13 @@ export const HomeMovies = () => {
             <h2 className={styles.heading}>
               Watch List{" "}
               <DeleteOutlined
-                onClick={() => handleClear()}
+                onClick={() => handleClear(MoviesFromWatchList)}
                 style={{ fontSize: "25px", marginLeft: "40px", color: "red" }}
               />
             </h2>
 
             <div className={styles.container}>
-              {watchlist?.map((movie) => (
+              {MoviesFromWatchList?.map((movie) => (
                 <div
                   title={movie.title}
                   key={movie.id}
@@ -86,7 +76,14 @@ export const HomeMovies = () => {
                     <img src={movie.image} alt="" className={styles.image} />
                   </div>
                   <div className={styles.cardinfo}>
-                    <h5>{movie.duration}</h5>
+                    <h5>{movie.duration} <Button
+                        className={styles.watchlist}
+                        danger
+                        onClick={() => removeFromListClick(movie.id)}
+                      >
+                        <DeleteOutlined />
+                      </Button></h5>
+                   
                   </div>
                 </div>
               ))}

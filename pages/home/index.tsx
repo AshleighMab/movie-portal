@@ -6,31 +6,54 @@ import router from "next/router";
 import { IMovie, IMovieIdDto } from "../../providers/movies/context";
 import MyCarousel from "../../components/Carousel";
 import { Button } from "antd";
-import { DeleteOutlined, HeartOutlined } from "@ant-design/icons";
+import { DeleteOutlined, HeartOutlined, HeartFilled } from "@ant-design/icons";
 export const HomeMovies = () => {
-  
-  const { getMovies, MoviesGotten, MoviesFromWatchList, removeFromList, addToList } =
-    useMovies();
+  const {
+    getMovies,
+    MoviesGotten,
+    MoviesFromWatchList,
+    removeFromList,
+    addToList,
+    getAllFromList,
+    MovieDeletedFromWatchList,
+    MovieAddedToWatchList,
+  } = useMovies();
 
   const [movieState, setMoviesState] = useState({} as IMovie);
-  const [watchlist, setWatchlist] = useState({} as IMovieIdDto);
+  const [add, setAdd] = useState("");
+  const [deleteM, setDeleteM] = useState("");
+
+  
+  useEffect(() => {
+    getMovies();
+    getAllFromList();    
+    console.log('triggered::')
+    console.log('MovieDeletedFromWatchList::', MovieDeletedFromWatchList)
+    console.log('MovieAddedToWatchList', MovieAddedToWatchList)
+  }, [MovieAddedToWatchList,MovieDeletedFromWatchList]);
+
+  if (!MoviesGotten ) {
+    return null;
+  }
+  if ( !MoviesFromWatchList) {
+    return null;
+  }
+
+  
 
   const topMovies = MoviesGotten.sort((a, b) => b.rating - a.rating);
 
-  getMovies();
-
-  const addToWatchlist = (movie: IMovieIdDto) => {
-    addToList(movie);
-
-    // if (!watchlist.includes(movie)) {
-    //   setWatchlist((prevWatchlist) => {
-    //     const newWatchlist = [...prevWatchlist, movie];
-    //     localStorage.setItem("watchlist", JSON.stringify(newWatchlist));
-    //     return newWatchlist;
-    //   });
-    // }
+  const removeFromListClick = (movieid: string) => {
+    removeFromList(movieid);
   };
 
+  const addToWatchlistClick = (movie: IMovie) => {
+    const x: IMovieIdDto = {
+      movieId: movie.id,
+    };
+
+    addToList(x);
+  };
 
   console.log("MovieState::", movieState);
 
@@ -64,18 +87,15 @@ export const HomeMovies = () => {
                   <h5>
                     {movie.duration}
                     {MoviesFromWatchList.some((p) => p.id === movie.id) ? (
-                      <Button
+                      <DeleteOutlined
                         className={styles.watchlist}
-                        danger
-                        onClick={() => removeFromList(movie.id)}
-                      >
-                        <DeleteOutlined />
-                      </Button>
+                        onClick={() => removeFromListClick(movie.id)}
+                      />
                     ) : (
                       <HeartOutlined
                         style={{ fontSize: "25px" }}
                         className={styles.watchlist}
-                        onClick={() => addToWatchlist(movie)}
+                        onClick={() => addToWatchlistClick(movie)}
                       />
                     )}
                   </h5>

@@ -17,10 +17,15 @@
   
 }
   
+.inwatchlist{
+  margin-left: 20px;
+ color: rgb(0, 233, 0); 
+ font-size: 25px;
+}
 .watchlist{
  margin-left: 20px;
- color: white;
-   
+
+
 }
   .heading{
     margin-left:40px;

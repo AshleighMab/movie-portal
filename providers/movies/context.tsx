@@ -17,7 +17,7 @@ export interface IMovie {
 }
 
 export interface IMovieIdDto {
-id?:string;
+movieId?:string;
 }
 export interface IMovieStateContext{
   readonly MovieCreated?: IMovie
@@ -28,7 +28,7 @@ export interface IMovieStateContext{
   readonly MovieSearched?: IMovie[]
   readonly isDefault?: boolean
   readonly ratedMovie?: IMovie
-  readonly MovieAddedToWatchList?: boolean
+  readonly MovieAddedToWatchList?: string
   readonly MoviesFromWatchList?: IMovie[]
   readonly MovieDeletedFromWatchList?: string
  
