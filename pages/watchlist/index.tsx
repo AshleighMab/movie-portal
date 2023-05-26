@@ -50,10 +50,10 @@ export const HomeMovies = () => {
           <>
             <h2 className={styles.heading}>
               Watch List{" "}
-              <DeleteFilled
+              {/* <DeleteFilled
                 onClick={() => handleClear(MoviesFromWatchList)}
                 style={{ fontSize: "25px", marginLeft: "40px", color: "red" }}
-              />
+              /> */}
             </h2>
 
             <div className={styles.container}>
