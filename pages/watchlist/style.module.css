@@ -25,11 +25,10 @@
 }
 
 .watchlist{
-background-color: rgb(54, 50, 50) ;
- margin-left: 20px;
- color: white;
-   
-}
+  margin-left: 20px;
+  color: white;
+   font-size:20px;
+ }
   .heading{
     margin-left:40px;
     margin-bottom:0%;
@@ -159,8 +158,3 @@ background-color: rgb(54, 50, 50) ;
     color: #ffffff;
   }
 
-  .watchlist{
-    margin-left: 20px;
-    color: white;
-      
-   }

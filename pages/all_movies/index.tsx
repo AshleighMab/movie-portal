@@ -5,26 +5,31 @@ import styles from "./style.module.css";
 import router from "next/router";
 import { IMovie, IMovieIdDto } from "../../providers/movies/context";
 import { Button } from "antd";
-import { HeartOutlined, DeleteOutlined } from "@ant-design/icons";
+import { HeartOutlined, DeleteOutlined, DeleteFilled} from "@ant-design/icons";
 
 export const HomeMovies = () => {
   const {getMovies,MoviesGotten,searchMovie, removeFromList,
-addToList,MoviesFromWatchList, getAllFromList
+addToList,MoviesFromWatchList, getAllFromList, MovieAddedToWatchList,MovieDeletedFromWatchList
   } = useMovies();
   const [movieState, setMoviesState] = useState({} as IMovie);
 
-  getMovies();
+
 
   useEffect(() => {
+    getMovies();
     getAllFromList()  
-  }, [])
+  }, [MovieAddedToWatchList,MovieDeletedFromWatchList])
 
   
   if (!MoviesFromWatchList) {
 <></>
   }
   
-  const addToWatchlist = (movie: IMovie) => {
+  const removeFromListClick = (movieid: string) => {
+    removeFromList(movieid);
+  };
+
+  const addToWatchlistClick = (movie: IMovie) => {
     const x : IMovieIdDto={
       movieId: movie.id
     }
@@ -100,19 +105,15 @@ addToList,MoviesFromWatchList, getAllFromList
                   <h5>
                     {movie.duration}
                     {MoviesFromWatchList.some((p) => p.id === movie.id) ? (
-                      <Button
-                        className={styles.watchlist}
-                        danger
-                        onClick={() => removeFromList(movie.id)}
-                      >
-                        <DeleteOutlined />
-                      </Button>
-                    ) : (
-                      <HeartOutlined
-                        style={{ fontSize: "25px" }}
-                        className={styles.watchlist}
-                        onClick={() => addToWatchlist(movie)}
-                      />
+                      <DeleteFilled
+                      className={styles.watchlist}
+                      onClick={() => removeFromListClick(movie.id)}
+                    />
+                  ) : (
+                    <HeartOutlined
+                      className={styles.watchlist}
+                      onClick={() => addToWatchlistClick(movie)}
+                    />
                     )}
                   </h5>
                 </div>

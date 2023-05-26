@@ -5,25 +5,21 @@ import styles from "./style.module.css";
 import router, { useRouter } from "next/router";
 import { IMovie, MovieContext } from "../../providers/movies/context";
 import Link from "next/link";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteOutlined,DeleteFilled } from "@ant-design/icons";
 import { Button } from "antd";
 
 export const HomeMovies = () => {
   //const { currentUser } = useUser();
   const { push } = useRouter();
-  const [watchlist, setWatchlist] = useState([]);
   const {getAllFromList, MoviesFromWatchList, removeFromList, MovieDeletedFromWatchList} = useMovies();
 
-  const [remove, setRemove] = useState('');
 
   useEffect(() => {
     getAllFromList();
-  }, [MoviesFromWatchList])
+  }, [MovieDeletedFromWatchList])
 
   const removeFromListClick =(movieid: string) => {
-
     removeFromList(movieid);
-  
   }
 
 
@@ -54,7 +50,7 @@ export const HomeMovies = () => {
           <>
             <h2 className={styles.heading}>
               Watch List{" "}
-              <DeleteOutlined
+              <DeleteFilled
                 onClick={() => handleClear(MoviesFromWatchList)}
                 style={{ fontSize: "25px", marginLeft: "40px", color: "red" }}
               />
@@ -76,14 +72,12 @@ export const HomeMovies = () => {
                     <img src={movie.image} alt="" className={styles.image} />
                   </div>
                   <div className={styles.cardinfo}>
-                    <h5>{movie.duration} <Button
-                        className={styles.watchlist}
-                        danger
-                        onClick={() => removeFromListClick(movie.id)}
-                      >
-                        <DeleteOutlined />
-                      </Button></h5>
-                   
+                    <h5>{movie.duration} 
+                         <DeleteFilled
+                         className={styles.watchlist}
+                         onClick={() => removeFromListClick(movie.id)}
+                       />
+                        </h5>
                   </div>
                 </div>
               ))}
