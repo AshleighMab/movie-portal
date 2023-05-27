@@ -5,8 +5,8 @@ import styles from "./style.module.css";
 import router from "next/router";
 import { IMovie, IMovieIdDto } from "../../providers/movies/context";
 import MyCarousel from "../../components/Carousel";
-import { Button } from "antd";
-import { DeleteOutlined, HeartOutlined, DeleteFilled, HeartFilled } from "@ant-design/icons";
+import { HeartOutlined, DeleteFilled } from "@ant-design/icons";
+import TokenAuth from "../../components/Hoc";
 export const HomeMovies = () => {
   const {
     getMovies,
@@ -20,8 +20,7 @@ export const HomeMovies = () => {
   } = useMovies();
 
   const [movieState, setMoviesState] = useState({} as IMovie);
-  const [add, setAdd] = useState("");
-  const [deleteM, setDeleteM] = useState("");
+
 
   
   useEffect(() => {
@@ -108,4 +107,4 @@ export const HomeMovies = () => {
   );
 };
 
-export default HomeMovies;
+export default TokenAuth(HomeMovies);

@@ -4,8 +4,7 @@ import Layout from "../../components/Layout";
 import styles from "./style.module.css";
 import router from "next/router";
 import { IMovie, IMovieIdDto } from "../../providers/movies/context";
-import { Button } from "antd";
-import { HeartOutlined, DeleteOutlined, DeleteFilled} from "@ant-design/icons";
+import { HeartOutlined, DeleteFilled} from "@ant-design/icons";
 
 export const HomeMovies = () => {
   const {getMovies,MoviesGotten,searchMovie, removeFromList,

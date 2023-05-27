@@ -13,7 +13,6 @@ import { notification } from "antd";
 
 const Movie: React.FC = () => {
   const { MovieFetched, MoviesGotten, rateMovie } = useMovies();
-  const [movieState, setMoviesState] = useState({} as IMovie);
   const router = useRouter();
   const { id } = router.query;
   const [rate, setRating] = useState(0);
