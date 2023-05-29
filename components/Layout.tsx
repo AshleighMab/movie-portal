@@ -52,7 +52,7 @@ const Layout = ({ children, title = "Movie Portal" }: Props) => {
           <a className={style.a} href="/watchlist">
             <>
               Watch List
-              <BadgeIcon />
+              {/* <BadgeIcon /> */}
             </>
           </a>
           | 

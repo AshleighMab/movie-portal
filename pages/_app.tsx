@@ -4,6 +4,7 @@ import { AppProps } from "next/app";
 import { MovieProvider } from "../providers/movies";
 import '../styles/globals.css';
 import { UserProvider } from "../providers/users";
+import BadgeIcon from "../components/BadgeIcon";
 
 
 function MyApp({ Component, pageProps }: AppProps) {

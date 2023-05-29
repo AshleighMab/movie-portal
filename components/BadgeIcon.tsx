@@ -16,7 +16,7 @@ const { MoviesFromWatchList} = useContext(MovieContext);
 
   return (
     <>
-      {/* <Badge count={MoviesFromWatchList.length} size={'small'} style={{marginBottom:'1vw'}}></Badge> */}
+      <Badge count={MoviesFromWatchList.length} size={'small'} style={{marginBottom:'1vw'}}></Badge>
     </>
   );
 };

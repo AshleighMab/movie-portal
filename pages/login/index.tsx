@@ -22,10 +22,10 @@ function Login() {
     console.log("Received values:", values);
     if (login) {
       const result = await login(values);
-      if (!authenticated) {
-        setError("Incorrect username or password");
-      } else {
+      if (authenticated) {
         setAuthenticated(true);
+      } else {
+        setError("Incorrect username or password"); 
       }
     }
   };
