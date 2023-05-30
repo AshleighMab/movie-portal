@@ -38,8 +38,6 @@ export const HomeMovies = () => {
     return null;
   }
 
-  
-
   const topMovies = MoviesGotten.sort((a, b) => b.rating - a.rating);
 
   const removeFromListClick = (movieid: string) => {
